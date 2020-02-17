@@ -9,7 +9,7 @@
 import UIKit
 import AsyncDisplayKit
 import RxCocoa_Texture
-
+import ASMvvm
 
 class ViewController: ASMTableController<SimpleListViewModel> {
     let addBtn: ASButtonNode = {
@@ -26,10 +26,6 @@ class ViewController: ASMTableController<SimpleListViewModel> {
         self.node.addSubnode(addBtn)
         addBtn.style.preferredSize = CGSize(width: 60, height: 40)
         addBtn.backgroundColor = .yellow
-//        headerNode.style.height = ASDimension(unit: .points, value: 100)
-//        headerNode.addSubnode(<#T##subnode: ASDisplayNode##ASDisplayNode#>)
-//        headerNode.backgroundColor = .yellow
-//        node.addSubnode(headerNode)
         
         viewModel?.add()
         viewModel?.add()
@@ -52,12 +48,12 @@ class ViewController: ASMTableController<SimpleListViewModel> {
     override func layoutNode(node: ASDisplayNode, constrainedSize: ASSizeRange) -> ASLayoutSpec {
         let header = ASCenterLayoutSpec(centeringOptions: .XY, sizingOptions: .minimumX, child: addBtn)
         header.style.height = ASDimension(unit: .points, value: 200)
-        tableView.style.flexGrow = 1
+        tableNode.style.flexGrow = 1
         let stack = ASStackLayoutSpec(direction: .vertical,
                                       spacing: 10,
                                       justifyContent: .spaceBetween,
                                       alignItems: .stretch,
-                                      children: [header, tableView])
+                                      children: [header, tableNode])
         return stack
     }
 }

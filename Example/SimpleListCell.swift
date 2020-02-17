@@ -10,6 +10,7 @@ import Foundation
 import RxCocoa
 import ObjectMapper
 import AsyncDisplayKit
+import ASMvvm
 
 class SimpleModel: Model {
     
@@ -37,13 +38,19 @@ class SimpleListCell: ASMCellNode<SimpleListCellViewModel> {
     override func bindViewAndViewModel() {
         guard let viewModel = viewModel else { return }
         
-        viewModel.rxTitle.subscribe(onNext: { [weak self] (text) in
-            self?.titleLabel.attributedText = NSAttributedString(string: text ?? "", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15), NSAttributedString.Key.foregroundColor: UIColor.black])
-        }) => disposeBag
+        viewModel.rxTitle
+            .bind(to: titleLabel.rx.text(SimpleListCell.titleAttributes), setNeedsLayout: self)
+            => disposeBag
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         return ASCenterLayoutSpec(centeringOptions: .Y, sizingOptions: .minimumX, child: titleLabel)
+    }
+}
+
+extension SimpleListCell {
+    static var titleAttributes: [NSAttributedString.Key: Any] {
+        return [.font: UIFont.systemFont(ofSize: 15),.foregroundColor: UIColor.black]
     }
 }
 

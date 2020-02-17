@@ -1,4 +1,11 @@
 PODS:
+  - ASMvvm (1.0.0):
+    - ObjectMapper
+    - RxASDataSources
+    - RxCocoa-Texture (~> 3.1.0)
+    - RxSwift
+    - Texture
+    - Texture/Yoga
   - Differentiator (4.0.1)
   - ObjectMapper (3.5.1)
   - PINCache (3.0.1-beta.6):
@@ -57,6 +64,7 @@ PODS:
   - Yoga (1.6.0)
 
 DEPENDENCIES:
+  - ASMvvm (from `../ASMvvm`)
   - ObjectMapper
   - RxASDataSources
   - RxCocoa-Texture (= 3.1.0)
@@ -79,7 +87,12 @@ SPEC REPOS:
     - Texture
     - Yoga
 
+EXTERNAL SOURCES:
+  ASMvvm:
+    :path: "../ASMvvm"
+
 SPEC CHECKSUMS:
+  ASMvvm: d094628743f86dbe9a4c17685fd95353cc079a83
   Differentiator: 886080237d9f87f322641dedbc5be257061b0602
   ObjectMapper: 70187b8941977c62ccfb423caf6b50be405cabf0
   PINCache: d195fdba255283f7e9900a55e3cced377f431f9b
@@ -93,6 +106,6 @@ SPEC CHECKSUMS:
   Texture: 8ecf6984065a1e54f06bf97b349ecca28582acd7
   Yoga: 81670877477311136b1b3f69a6307ce62e1c89cf
 
-PODFILE CHECKSUM: b1757d321f622b5e592eb311c4eb4a315419105f
+PODFILE CHECKSUM: a777445d3c4983d63096cac338fd151fbb0bb6c4
 
 COCOAPODS: 1.8.4

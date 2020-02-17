@@ -10,49 +10,47 @@ import Foundation
 import AsyncDisplayKit
 import RxASDataSources
 
-open class ASMTableController<VM: IListViewModel>: ASMViewController<VM> {
+open class ASMCollectionController<VM: IListViewModel>: ASMViewController<VM> {
     
     public typealias CVM = VM.CellViewModelElement
     
-    public let tableView: ASTableNode
+    public var collectionNode: ASCollectionNode!
     
-    public var dataSource: RxASTableAnimatedDataSource<ASMSectionList<CVM>>?
+    public var dataSource: RxASCollectionAnimatedDataSource<ASMSectionList<CVM>>?
     
     public init(viewModel: VM? = nil) {
-        tableView = ASTableNode(style: .plain)
         super.init(viewModel: viewModel, node: ASDisplayNode())
-        self.node.addSubnode(tableView)
+        collectionNode = ASCollectionNode(collectionViewLayout: getCollectionFlowLayout())
+        self.node.addSubnode(collectionNode)        
     }
     
     required public init?(coder aDecoder: NSCoder) {
-        tableView = ASTableNode(style: .plain)
-        tableView.backgroundColor = .yellow
         super.init(coder: aDecoder)
     }
     
     open override func destroy() {
         super.destroy()
-        tableView.removeFromSupernode()
+        collectionNode.removeFromSupernode()
     }
     
     open override func layoutNode(node: ASDisplayNode, constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        return ASInsetLayoutSpec(insets: UIEdgeInsets.zero, child: tableView)
+        return ASInsetLayoutSpec(insets: UIEdgeInsets.zero, child: collectionNode)
     }
     
     /// Every time the viewModel changed, this method will be called again, so make sure to call super for ListPage to work
     open override func bindViewAndViewModel() {
-        tableView.rx.itemSelected.asObservable().subscribe(onNext: onItemSelected) => disposeBag
+        collectionNode.rx.itemSelected.asObservable().subscribe(onNext: onItemSelected) => disposeBag
         
-        let configureCell: ASTableSectionedDataSource<ASMSectionList<CVM>>.ConfigureCell = { (_, tableNode, index, i) in
+        let configureCell: RxASCollectionAnimatedDataSource<ASMSectionList<CVM>>.ConfigureCell = { (_, tableNode, index, i) in
             return self.configureCell(index: index, cellVM: i)
         }
         
-        dataSource = RxASTableAnimatedDataSource<ASMSectionList<CVM>>(
+        dataSource = RxASCollectionAnimatedDataSource<ASMSectionList<CVM>>(
             configureCell: configureCell
         )
         
         viewModel?.itemsSource.rxInnerSources
-            .bind(to: tableView.rx.items(dataSource: dataSource!)) => disposeBag
+            .bind(to: collectionNode.rx.items(dataSource: dataSource!)) => disposeBag
     }
     
     private func onItemSelected(_ indexPath: IndexPath) {
@@ -71,5 +69,9 @@ open class ASMTableController<VM: IListViewModel>: ASMViewController<VM> {
     
     open func configureCell(index: IndexPath, cellVM: CVM) -> ASCellNode {
         fatalError("Subclasses have to implement this method.")
+    }
+    
+    open func getCollectionFlowLayout() -> UICollectionViewFlowLayout {
+        return UICollectionViewFlowLayout()
     }
 }

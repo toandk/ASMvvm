@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ASMvvm
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

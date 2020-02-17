@@ -2,8 +2,8 @@
 //  Views.swift
 //  DTMvvm
 //
-//  Created by Dao Duy Duong on 10/7/15.
-//  Copyright © 2015 Nover. All rights reserved.
+//  Created by toandk on 2/14/20.
+//  Copyright © 2020 toandk. All rights reserved.
 //
 
 import UIKit
