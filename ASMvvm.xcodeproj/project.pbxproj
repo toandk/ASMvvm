@@ -3,18 +3,31 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1CCC9B849E2764B555659ACC /* Pods_ASMvvm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4477C7F5A507EF171D949E7 /* Pods_ASMvvm.framework */; };
 		7081DC4923F686F000A3757E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7081DC4823F686F000A3757E /* AppDelegate.swift */; };
 		7081DC4B23F686F000A3757E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7081DC4A23F686F000A3757E /* ViewController.swift */; };
 		7081DC4E23F686F000A3757E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7081DC4C23F686F000A3757E /* Main.storyboard */; };
 		7081DC5023F686F100A3757E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7081DC4F23F686F100A3757E /* Assets.xcassets */; };
 		7081DC5323F686F100A3757E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7081DC5123F686F100A3757E /* LaunchScreen.storyboard */; };
+		7081DC5D23F6874E00A3757E /* ViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7081DC5C23F6874E00A3757E /* ViewModels.swift */; };
+		7081DC6423F6877B00A3757E /* ASMViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7081DC6123F6877B00A3757E /* ASMViews.swift */; };
+		7081DC6523F6877B00A3757E /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7081DC6223F6877B00A3757E /* ListView.swift */; };
+		7081DC6623F6877B00A3757E /* CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7081DC6323F6877B00A3757E /* CollectionView.swift */; };
+		7081DC6A23F687A800A3757E /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7081DC6823F687A800A3757E /* Protocols.swift */; };
+		7081DC6B23F687A800A3757E /* ASMSectionList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7081DC6923F687A800A3757E /* ASMSectionList.swift */; };
+		7081DC6E23F687B900A3757E /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7081DC6D23F687B900A3757E /* Model.swift */; };
+		7081DCAF23F697AD00A3757E /* BindingOperators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7081DC9D23F697AD00A3757E /* BindingOperators.swift */; };
+		7081DCBA23F6A52500A3757E /* ASMViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7081DCB923F6A52500A3757E /* ASMViewController.swift */; };
+		7081DCBC23F6AB7D00A3757E /* ASMTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7081DCBB23F6AB7D00A3757E /* ASMTableController.swift */; };
+		7081DCBE23F6AD5100A3757E /* SimpleListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7081DCBD23F6AD5100A3757E /* SimpleListCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0067B90E53EC06ECA48F8D3E /* Pods-ASMvvm.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ASMvvm.release.xcconfig"; path = "Target Support Files/Pods-ASMvvm/Pods-ASMvvm.release.xcconfig"; sourceTree = "<group>"; };
 		7081DC4523F686F000A3757E /* ASMvvm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ASMvvm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7081DC4823F686F000A3757E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7081DC4A23F686F000A3757E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -22,6 +35,19 @@
 		7081DC4F23F686F100A3757E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7081DC5223F686F100A3757E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7081DC5423F686F100A3757E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7081DC5C23F6874E00A3757E /* ViewModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModels.swift; sourceTree = "<group>"; };
+		7081DC6123F6877B00A3757E /* ASMViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASMViews.swift; sourceTree = "<group>"; };
+		7081DC6223F6877B00A3757E /* ListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
+		7081DC6323F6877B00A3757E /* CollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionView.swift; sourceTree = "<group>"; };
+		7081DC6823F687A800A3757E /* Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
+		7081DC6923F687A800A3757E /* ASMSectionList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASMSectionList.swift; sourceTree = "<group>"; };
+		7081DC6D23F687B900A3757E /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		7081DC9D23F697AD00A3757E /* BindingOperators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BindingOperators.swift; sourceTree = "<group>"; };
+		7081DCB923F6A52500A3757E /* ASMViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASMViewController.swift; sourceTree = "<group>"; };
+		7081DCBB23F6AB7D00A3757E /* ASMTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASMTableController.swift; sourceTree = "<group>"; };
+		7081DCBD23F6AD5100A3757E /* SimpleListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleListCell.swift; sourceTree = "<group>"; };
+		A4477C7F5A507EF171D949E7 /* Pods_ASMvvm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ASMvvm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F7E7EE7280073BF594827413 /* Pods-ASMvvm.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ASMvvm.debug.xcconfig"; path = "Target Support Files/Pods-ASMvvm/Pods-ASMvvm.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +55,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1CCC9B849E2764B555659ACC /* Pods_ASMvvm.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1AE913A8A6C1DC80757C9E90 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A4477C7F5A507EF171D949E7 /* Pods_ASMvvm.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		7081DC3C23F686F000A3757E = {
 			isa = PBXGroup;
 			children = (
 				7081DC4723F686F000A3757E /* ASMvvm */,
 				7081DC4623F686F000A3757E /* Products */,
+				FA15222C861155847E5C52FB /* Pods */,
+				1AE913A8A6C1DC80757C9E90 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -54,14 +91,90 @@
 		7081DC4723F686F000A3757E /* ASMvvm */ = {
 			isa = PBXGroup;
 			children = (
+				7081DC5B23F6873F00A3757E /* Core */,
 				7081DC4823F686F000A3757E /* AppDelegate.swift */,
 				7081DC4A23F686F000A3757E /* ViewController.swift */,
+				7081DCBD23F6AD5100A3757E /* SimpleListCell.swift */,
 				7081DC4C23F686F000A3757E /* Main.storyboard */,
 				7081DC4F23F686F100A3757E /* Assets.xcassets */,
 				7081DC5123F686F100A3757E /* LaunchScreen.storyboard */,
 				7081DC5423F686F100A3757E /* Info.plist */,
 			);
 			path = ASMvvm;
+			sourceTree = "<group>";
+		};
+		7081DC5B23F6873F00A3757E /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				7081DC6C23F687B300A3757E /* Models */,
+				7081DC6723F6878A00A3757E /* Global */,
+				7081DC6023F6876F00A3757E /* Extensions */,
+				7081DC5F23F6876600A3757E /* Views */,
+				7081DC5E23F6876000A3757E /* ViewModels */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		7081DC5E23F6876000A3757E /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				7081DC5C23F6874E00A3757E /* ViewModels.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		7081DC5F23F6876600A3757E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				7081DC6323F6877B00A3757E /* CollectionView.swift */,
+				7081DC6223F6877B00A3757E /* ListView.swift */,
+				7081DC6123F6877B00A3757E /* ASMViews.swift */,
+				7081DCB923F6A52500A3757E /* ASMViewController.swift */,
+				7081DCBB23F6AB7D00A3757E /* ASMTableController.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		7081DC6023F6876F00A3757E /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				7081DC9423F697AD00A3757E /* ReactiveExtensions */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		7081DC6723F6878A00A3757E /* Global */ = {
+			isa = PBXGroup;
+			children = (
+				7081DC6823F687A800A3757E /* Protocols.swift */,
+				7081DC6923F687A800A3757E /* ASMSectionList.swift */,
+			);
+			path = Global;
+			sourceTree = "<group>";
+		};
+		7081DC6C23F687B300A3757E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				7081DC6D23F687B900A3757E /* Model.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		7081DC9423F697AD00A3757E /* ReactiveExtensions */ = {
+			isa = PBXGroup;
+			children = (
+				7081DC9D23F697AD00A3757E /* BindingOperators.swift */,
+			);
+			path = ReactiveExtensions;
+			sourceTree = "<group>";
+		};
+		FA15222C861155847E5C52FB /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F7E7EE7280073BF594827413 /* Pods-ASMvvm.debug.xcconfig */,
+				0067B90E53EC06ECA48F8D3E /* Pods-ASMvvm.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -71,9 +184,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7081DC5723F686F100A3757E /* Build configuration list for PBXNativeTarget "ASMvvm" */;
 			buildPhases = (
+				360C1184FD290FBF825069F7 /* [CP] Check Pods Manifest.lock */,
 				7081DC4123F686F000A3757E /* Sources */,
 				7081DC4223F686F000A3757E /* Frameworks */,
 				7081DC4323F686F000A3757E /* Resources */,
+				0DE161909096BF94924D67DA /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -130,11 +245,64 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		0DE161909096BF94924D67DA /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ASMvvm/Pods-ASMvvm-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ASMvvm/Pods-ASMvvm-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ASMvvm/Pods-ASMvvm-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		360C1184FD290FBF825069F7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ASMvvm-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		7081DC4123F686F000A3757E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7081DC6E23F687B900A3757E /* Model.swift in Sources */,
+				7081DCAF23F697AD00A3757E /* BindingOperators.swift in Sources */,
+				7081DC6623F6877B00A3757E /* CollectionView.swift in Sources */,
+				7081DCBA23F6A52500A3757E /* ASMViewController.swift in Sources */,
+				7081DCBC23F6AB7D00A3757E /* ASMTableController.swift in Sources */,
+				7081DCBE23F6AD5100A3757E /* SimpleListCell.swift in Sources */,
+				7081DC6423F6877B00A3757E /* ASMViews.swift in Sources */,
+				7081DC6A23F687A800A3757E /* Protocols.swift in Sources */,
+				7081DC5D23F6874E00A3757E /* ViewModels.swift in Sources */,
+				7081DC6523F6877B00A3757E /* ListView.swift in Sources */,
+				7081DC6B23F687A800A3757E /* ASMSectionList.swift in Sources */,
 				7081DC4B23F686F000A3757E /* ViewController.swift in Sources */,
 				7081DC4923F686F000A3757E /* AppDelegate.swift in Sources */,
 			);
@@ -280,10 +448,12 @@
 		};
 		7081DC5823F686F100A3757E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F7E7EE7280073BF594827413 /* Pods-ASMvvm.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = ASMvvm/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -297,10 +467,12 @@
 		};
 		7081DC5923F686F100A3757E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0067B90E53EC06ECA48F8D3E /* Pods-ASMvvm.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = ASMvvm/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

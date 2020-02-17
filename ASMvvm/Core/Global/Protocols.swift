@@ -1,0 +1,123 @@
+//
+//  Protocols.swift
+//  DTMvvm
+//
+//  Created by Dao Duy Duong on 9/26/18.
+//
+
+import UIKit
+import RxSwift
+import RxCocoa
+import Differentiator
+import AsyncDisplayKit
+
+/// Destroyable type for handling dispose bag and destroy it
+public protocol IDestroyable: class {
+    
+    var disposeBag: DisposeBag? { get set }
+    func destroy()
+}
+
+/// PopView type for Page to implement as a pop view
+public protocol IPopupView: class {
+    
+    /*
+     Setup popup layout
+     
+     Popview is a UIViewController base, therefore it already has a filled view in. This method allows
+     implementation to layout it customly. For example:
+     
+     ```
+     view.cornerRadius = 7
+     view.autoCenterInSuperview()
+     ```
+     */
+    func popupLayout()
+    
+    /*
+     Show animation
+     
+     The presenter page has overlayView, use this if we want to animation the overlayView too, e.g alpha
+     */
+    func show(overlayView: UIView)
+    
+    /*
+     Hide animation
+     
+     Must call completion when the animation is finished
+     */
+    func hide(overlayView: UIView, completion: @escaping (() -> ()))
+}
+
+/// TransitionView type to create custom transitioning between pages
+public protocol ITransitionView: class {
+    
+    /**
+     Keep track of animator delegate for custom transitioning
+     */
+//    var animatorDelegate: AnimatorDelegate? { get set }
+}
+
+/// AnyView type for helping assign any viewModel to any view
+public protocol IAnyView: class {
+    
+    /**
+     Any value assign to this property will be delegate to its correct viewModel type
+     */
+    var anyViewModel: Any? { get set }
+}
+
+/// Base View type for the whole library
+public protocol IView: IAnyView, IDestroyable {
+    
+    associatedtype ViewModelElement
+    
+    var viewModel: ViewModelElement? { get set }
+    
+    func initialize()
+    func bindViewAndViewModel()
+}
+
+// MARK: - Viewmodel protocols
+public protocol IdentifyEquatable: Equatable, IdentifiableType {
+    
+}
+
+/// Base generic viewModel type, implement Destroyable and Equatable
+public protocol IGenericViewModel: IDestroyable, IdentifyEquatable where Identity == String {
+    
+    associatedtype ModelElement
+    
+    var model: ModelElement? { get set }
+    
+    init(model: ModelElement?)
+}
+
+public extension IGenericViewModel {
+    var identity : Identity {
+        return model.debugDescription
+    }
+}
+
+/// Base ViewModel type for Page (UIViewController), View (UIVIew)
+public protocol IViewModel: IGenericViewModel {
+//    var rxShowLocalHud: BehaviorRelay<Bool> { get }
+    
+}
+
+public protocol IListViewModel: IViewModel {
+    
+    associatedtype CellViewModelElement: IGenericViewModel
+    
+    var itemsSource: ASMReactiveCollection<CellViewModelElement> { get }
+    var rxSelectedItem: BehaviorRelay<CellViewModelElement?> { get }
+    var rxSelectedIndex: BehaviorRelay<IndexPath?> { get }
+    
+    func selectedItemDidChange(_ cellViewModel: CellViewModelElement)
+}
+
+
+
+
+
+
