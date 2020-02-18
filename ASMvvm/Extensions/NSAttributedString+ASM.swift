@@ -21,5 +21,4 @@ extension NSAttributedString {
 
     return attributedString
   }
-  
 }
