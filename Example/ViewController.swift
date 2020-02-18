@@ -10,6 +10,7 @@ import UIKit
 import AsyncDisplayKit
 import RxCocoa_Texture
 import ASMvvm
+import DTMvvm
 
 class ViewController: ASMTableController<SimpleListViewModel> {
     let addBtn: ASButtonNode = {

@@ -1,5 +1,12 @@
 PODS:
+  - Action (4.0.0):
+    - RxCocoa (~> 5.0)
+    - RxSwift (~> 5.0)
+  - Alamofire (4.9.1)
+  - AlamofireImage (3.6.0):
+    - Alamofire (~> 4.9)
   - ASMvvm (1.0.0):
+    - DTMvvm
     - ObjectMapper
     - RxASDataSources
     - RxCocoa-Texture (~> 3.1.0)
@@ -7,6 +14,20 @@ PODS:
     - Texture
     - Texture/Yoga
   - Differentiator (4.0.1)
+  - DTMvvm (1.5.0):
+    - Action
+    - Alamofire
+    - AlamofireImage
+    - Moya
+    - ObjectMapper
+    - PureLayout
+    - RxCocoa
+    - RxSwift
+  - Moya (13.0.1):
+    - Moya/Core (= 13.0.1)
+  - Moya/Core (13.0.1):
+    - Alamofire (~> 4.1)
+    - Result (~> 4.1)
   - ObjectMapper (3.5.1)
   - PINCache (3.0.1-beta.6):
     - PINCache/Arc-exception-safe (= 3.0.1-beta.6)
@@ -23,6 +44,8 @@ PODS:
   - PINRemoteImage/PINCache (3.0.0-beta.13):
     - PINCache (= 3.0.1-beta.6)
     - PINRemoteImage/Core
+  - PureLayout (3.1.5)
+  - Result (4.1.0)
   - RxASDataSources (0.4.1):
     - Differentiator (~> 4.0)
     - RxCocoa (~> 5.0.0)
@@ -74,11 +97,18 @@ DEPENDENCIES:
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
+    - Action
+    - Alamofire
+    - AlamofireImage
     - Differentiator
+    - DTMvvm
+    - Moya
     - ObjectMapper
     - PINCache
     - PINOperation
     - PINRemoteImage
+    - PureLayout
+    - Result
     - RxASDataSources
     - RxCocoa
     - RxCocoa-Texture
@@ -92,12 +122,19 @@ EXTERNAL SOURCES:
     :path: "../ASMvvm"
 
 SPEC CHECKSUMS:
-  ASMvvm: d094628743f86dbe9a4c17685fd95353cc079a83
+  Action: 0d14986aad0f1330aa27ce65d0cdeaacbb63d91c
+  Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
+  AlamofireImage: be9963c6582d68b39e89191f64c82a7d7bf40fdd
+  ASMvvm: ca5eaecbe882e06353f1fe377b6aa73a4b686bf9
   Differentiator: 886080237d9f87f322641dedbc5be257061b0602
+  DTMvvm: bd58255e6d8b0d5297b8c22366f7c42d30ee17cc
+  Moya: f4a4b80ff2f8a4ffc208dfb31cd91636622fee6e
   ObjectMapper: 70187b8941977c62ccfb423caf6b50be405cabf0
   PINCache: d195fdba255283f7e9900a55e3cced377f431f9b
   PINOperation: 24b774353ca248fcf87d67b2d61eef42087c125a
   PINRemoteImage: d6d51c5d2adda55f1ce30c96e850b6c4ebd2856a
+  PureLayout: 9b4ad47b2f0388c84ff534af23d96e720c1b875a
+  Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
   RxASDataSources: b1767fdc2b455d67a7e8524588b1d4289300f976
   RxCocoa: e741b9749968e8a143e2b787f1dfbff2b63d0a5c
   RxCocoa-Texture: 90abb54f5d153746fe414f4d04e6d2e6cf91d70e
@@ -106,6 +143,6 @@ SPEC CHECKSUMS:
   Texture: 8ecf6984065a1e54f06bf97b349ecca28582acd7
   Yoga: 81670877477311136b1b3f69a6307ce62e1c89cf
 
-PODFILE CHECKSUM: a777445d3c4983d63096cac338fd151fbb0bb6c4
+PODFILE CHECKSUM: 44fa5a33cef05a1823aa751a028e495edbd036c0
 
 COCOAPODS: 1.8.4

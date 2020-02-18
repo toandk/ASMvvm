@@ -11,6 +11,7 @@ import RxCocoa
 import ObjectMapper
 import AsyncDisplayKit
 import ASMvvm
+import DTMvvm
 
 class SimpleModel: Model {
     

@@ -16,17 +16,8 @@ protocol IReactable {
     func react()
 }
 
-extension Reactive where Base: IGenericViewModel {
-    
-    public typealias ModelElement = Base.ModelElement
-    
-    public var model: Binder<ModelElement?> {
-        return Binder(base) { $0.model = $1 }
-    }
-}
-
 /// A master based ViewModel for all
-open class ASMViewModel<M>: NSObject, IViewModel, IReactable {
+open class ASMViewModel<M>: NSObject, IASMViewModel, IReactable {
     
     public typealias ModelElement = M
     
@@ -79,7 +70,7 @@ open class ASMViewModel<M>: NSObject, IViewModel, IReactable {
  The idea for ListViewModel is that it will contain a list of CellViewModels
  By using this list, ListPage will render the cell and assign ViewModel to it respectively
  */
-open class ASMListViewModel<M, CVM: IGenericViewModel>: ASMViewModel<M>, IListViewModel {
+open class ASMListViewModel<M, CVM: IASMGenericViewModel>: ASMViewModel<M>, IASMListViewModel {
     
     public typealias CellViewModelElement = CVM
     
@@ -117,7 +108,7 @@ protocol IIndexable: class {
     var indexPath: IndexPath? { get set }
 }
 
-open class ASMCellViewModel<M>: NSObject, IGenericViewModel, IIndexable, IReactable {
+open class ASMCellViewModel<M>: NSObject, IASMGenericViewModel, IIndexable, IReactable {
     
     public typealias ModelElement = M
     

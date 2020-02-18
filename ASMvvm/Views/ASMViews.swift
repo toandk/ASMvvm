@@ -9,9 +9,10 @@
 import UIKit
 import RxSwift
 import AsyncDisplayKit
+import DTMvvm
 
 /// Based ASView that support ViewModel
-open class ASMView<VM: IGenericViewModel>: ASDisplayNode, IView {
+open class ASMView<VM: IASMGenericViewModel>: ASDisplayNode, IView {
     
     public typealias ViewModelElement = VM
     
@@ -50,7 +51,7 @@ open class ASMView<VM: IGenericViewModel>: ASDisplayNode, IView {
         viewModelChanged()
     }
     
-    private func viewModelChanged() {
+    open func viewModelChanged() {
         bindViewAndViewModel()
         (_viewModel as? IReactable)?.reactIfNeeded()
     }
@@ -65,7 +66,7 @@ open class ASMView<VM: IGenericViewModel>: ASDisplayNode, IView {
 }
 
 /// Master cell for ListPage
-open class ASMCellNode<VM: IGenericViewModel>: ASCellNode, IView {
+open class ASMCellNode<VM: IASMGenericViewModel>: ASCellNode, IView {
     
     open class var identifier: String {
         return String(describing: self)
@@ -115,7 +116,7 @@ open class ASMCellNode<VM: IGenericViewModel>: ASCellNode, IView {
         initialize()
     }
     
-    private func viewModelChanged() {
+    open func viewModelChanged() {
         bindViewAndViewModel()
         (_viewModel as? IReactable)?.reactIfNeeded()
     }

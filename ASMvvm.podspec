@@ -39,7 +39,7 @@ A MVVM library for iOS Swift, including interfaces for View, ViewModel and Model
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   s.frameworks = 'UIKit'
-
+  s.dependency 'DTMvvm'
   s.dependency 'RxSwift'
   s.dependency 'RxCocoa-Texture', '~> 3.1.0'
   s.dependency 'RxSwift'

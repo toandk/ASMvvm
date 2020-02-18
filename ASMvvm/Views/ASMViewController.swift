@@ -9,8 +9,9 @@
 import Foundation
 import RxSwift
 import AsyncDisplayKit
+import DTMvvm
 
-open class ASMViewController<VM: IViewModel>: ASViewController<ASDisplayNode>, IView {
+open class ASMViewController<VM: IASMViewModel>: ASViewController<ASDisplayNode>, IView {
     public var disposeBag: DisposeBag? = DisposeBag()
     
     private var _viewModel: VM?
@@ -82,7 +83,7 @@ open class ASMViewController<VM: IViewModel>: ASViewController<ASDisplayNode>, I
         viewModel?.destroy()
     }
     
-    private func viewModelChanged() {
+    open func viewModelChanged() {
         bindViewAndViewModel()
         (_viewModel as? IReactable)?.reactIfNeeded()
     }

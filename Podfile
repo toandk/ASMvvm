@@ -2,7 +2,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '10.0'
 use_frameworks!
 
-target 'ASMvvm' do
+target 'ASMvvm-Example' do
   pod 'ASMvvm', :path => '../ASMvvm'
   pod 'RxCocoa-Texture', '3.1.0'
   pod 'RxSwift'

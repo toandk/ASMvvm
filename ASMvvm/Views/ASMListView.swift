@@ -9,8 +9,9 @@
 import UIKit
 import AsyncDisplayKit
 import RxASDataSources
+import DTMvvm
 
-open class ASMListView<VM: IListViewModel>: ASMView<VM> {
+open class ASMListView<VM: IASMListViewModel>: ASMView<VM> {
 
     public typealias CVM = VM.CellViewModelElement
     

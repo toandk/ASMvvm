@@ -7,17 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1CCC9B849E2764B555659ACC /* Pods_ASMvvm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4477C7F5A507EF171D949E7 /* Pods_ASMvvm.framework */; };
 		7081DC4923F686F000A3757E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7081DC4823F686F000A3757E /* AppDelegate.swift */; };
 		7081DC4B23F686F000A3757E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7081DC4A23F686F000A3757E /* ViewController.swift */; };
 		7081DC4E23F686F000A3757E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7081DC4C23F686F000A3757E /* Main.storyboard */; };
 		7081DC5023F686F100A3757E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7081DC4F23F686F100A3757E /* Assets.xcassets */; };
 		7081DC5323F686F100A3757E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7081DC5123F686F100A3757E /* LaunchScreen.storyboard */; };
 		7081DCBE23F6AD5100A3757E /* SimpleListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7081DCBD23F6AD5100A3757E /* SimpleListCell.swift */; };
+		72F57319BE54B87FD18D9323 /* Pods_ASMvvm_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9CF151601B9E8DAA6A47BA5 /* Pods_ASMvvm_Example.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0067B90E53EC06ECA48F8D3E /* Pods-ASMvvm.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ASMvvm.release.xcconfig"; path = "Target Support Files/Pods-ASMvvm/Pods-ASMvvm.release.xcconfig"; sourceTree = "<group>"; };
+		344CB875648951CE75CF73E3 /* Pods-ASMvvm-Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ASMvvm-Example.release.xcconfig"; path = "Target Support Files/Pods-ASMvvm-Example/Pods-ASMvvm-Example.release.xcconfig"; sourceTree = "<group>"; };
 		7081DC4523F686F000A3757E /* ASMvvm-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ASMvvm-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7081DC4823F686F000A3757E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7081DC4A23F686F000A3757E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -26,8 +27,9 @@
 		7081DC5223F686F100A3757E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7081DC5423F686F100A3757E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7081DCBD23F6AD5100A3757E /* SimpleListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleListCell.swift; sourceTree = "<group>"; };
-		A4477C7F5A507EF171D949E7 /* Pods_ASMvvm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ASMvvm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DB7F23EA6C31D77CAC7F92CB /* Pods-ASMvvm-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ASMvvm-Example.debug.xcconfig"; path = "Target Support Files/Pods-ASMvvm-Example/Pods-ASMvvm-Example.debug.xcconfig"; sourceTree = "<group>"; };
 		F7E7EE7280073BF594827413 /* Pods-ASMvvm.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ASMvvm.debug.xcconfig"; path = "Target Support Files/Pods-ASMvvm/Pods-ASMvvm.debug.xcconfig"; sourceTree = "<group>"; };
+		F9CF151601B9E8DAA6A47BA5 /* Pods_ASMvvm_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ASMvvm_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,7 +37,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1CCC9B849E2764B555659ACC /* Pods_ASMvvm.framework in Frameworks */,
+				72F57319BE54B87FD18D9323 /* Pods_ASMvvm_Example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -45,7 +47,7 @@
 		1AE913A8A6C1DC80757C9E90 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				A4477C7F5A507EF171D949E7 /* Pods_ASMvvm.framework */,
+				F9CF151601B9E8DAA6A47BA5 /* Pods_ASMvvm_Example.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -87,6 +89,8 @@
 			children = (
 				F7E7EE7280073BF594827413 /* Pods-ASMvvm.debug.xcconfig */,
 				0067B90E53EC06ECA48F8D3E /* Pods-ASMvvm.release.xcconfig */,
+				DB7F23EA6C31D77CAC7F92CB /* Pods-ASMvvm-Example.debug.xcconfig */,
+				344CB875648951CE75CF73E3 /* Pods-ASMvvm-Example.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -166,15 +170,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ASMvvm/Pods-ASMvvm-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-ASMvvm-Example/Pods-ASMvvm-Example-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ASMvvm/Pods-ASMvvm-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-ASMvvm-Example/Pods-ASMvvm-Example-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ASMvvm/Pods-ASMvvm-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ASMvvm-Example/Pods-ASMvvm-Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		360C1184FD290FBF825069F7 /* [CP] Check Pods Manifest.lock */ = {
@@ -192,7 +196,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-ASMvvm-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-ASMvvm-Example-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -352,7 +356,7 @@
 		};
 		7081DC5823F686F100A3757E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F7E7EE7280073BF594827413 /* Pods-ASMvvm.debug.xcconfig */;
+			baseConfigurationReference = DB7F23EA6C31D77CAC7F92CB /* Pods-ASMvvm-Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -371,7 +375,7 @@
 		};
 		7081DC5923F686F100A3757E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0067B90E53EC06ECA48F8D3E /* Pods-ASMvvm.release.xcconfig */;
+			baseConfigurationReference = 344CB875648951CE75CF73E3 /* Pods-ASMvvm-Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
