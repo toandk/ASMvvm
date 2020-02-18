@@ -29,7 +29,7 @@ A MVVM library for iOS Swift, including interfaces for View, ViewModel and Model
   s.swift_version    = '5.0'
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '10.0'
+  s.ios.deployment_target = '9.0'
 
   s.source_files = 'ASMvvm/**/*'
 
