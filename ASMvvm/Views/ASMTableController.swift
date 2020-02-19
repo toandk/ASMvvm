@@ -11,29 +11,23 @@ import AsyncDisplayKit
 import RxASDataSources
 import DTMvvm
 
-open class ASMTableController<VM: IASMListViewModel>: ASMViewController<VM> {
+open class ASMTableController<VM: IASMListViewModel>: ASMViewController<VM>, ASTableDelegate {
     
     public typealias CVM = VM.CellViewModelElement
     
-    public let tableNode: ASTableNode
+    public var tableNode: ASTableNode!
     
     public var dataSource: RxASTableAnimatedDataSource<ASMSectionList<CVM>>?
     
     public init(viewModel: VM? = nil) {
         tableNode = ASTableNode(style: .plain)
         super.init(viewModel: viewModel, node: ASDisplayNode())
-        self.node.addSubnode(tableNode)
+        self.node.automaticallyManagesSubnodes = true
+        tableNode.delegate = self
     }
     
     required public init?(coder aDecoder: NSCoder) {
-        tableNode = ASTableNode(style: .plain)
-        tableNode.backgroundColor = .yellow
         super.init(coder: aDecoder)
-    }
-    
-    open override func destroy() {
-        super.destroy()
-        tableNode.removeFromSupernode()
     }
     
     open override func layoutNode(node: ASDisplayNode, constrainedSize: ASSizeRange) -> ASLayoutSpec {
@@ -42,6 +36,7 @@ open class ASMTableController<VM: IASMListViewModel>: ASMViewController<VM> {
     
     /// Every time the viewModel changed, this method will be called again, so make sure to call super for ListPage to work
     open override func bindViewAndViewModel() {
+        guard let tableNode = tableNode, dataSource == nil else { return }
         tableNode.rx.itemSelected.asObservable().subscribe(onNext: onItemSelected) => disposeBag
         
         let configureCell: ASTableSectionedDataSource<ASMSectionList<CVM>>.ConfigureCell = { (_, tableNode, index, i) in
@@ -72,5 +67,21 @@ open class ASMTableController<VM: IASMListViewModel>: ASMViewController<VM> {
     
     open func configureCell(index: IndexPath, cellVM: CVM) -> ASCellNode {
         fatalError("Subclasses have to implement this method.")
+    }
+    
+    public func shouldBatchFetch(for tableNode: ASTableNode) -> Bool {
+        if let viewModel = viewModel,
+        viewModel.itemsSource.countElements() > 0,
+        viewModel.canLoadMore,
+        !viewModel.rxIsLoading.value,
+        !viewModel.rxIsLoadingMore.value {
+            return true
+        }
+        return false
+    }
+    
+    public func tableNode(_ tableNode: ASTableNode, willBeginBatchFetchWith context: ASBatchContext) {
+        context.beginBatchFetching()
+        viewModel?.loadMoreItem(context: context)
     }
 }

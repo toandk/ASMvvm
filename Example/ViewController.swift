@@ -24,16 +24,15 @@ class ViewController: ASMTableController<SimpleListViewModel> {
     override func initialize() {
         super.initialize()
         
-        self.node.addSubnode(addBtn)
         addBtn.style.preferredSize = CGSize(width: 60, height: 40)
         addBtn.backgroundColor = .yellow
         
-        viewModel?.add()
-        viewModel?.add()
+//        viewModel?.add()
+//        viewModel?.add()
     }
     
     override func bindViewAndViewModel() {
-        super.bindViewAndViewModel()
+        super.bindViewAndViewModel()        
         
         guard viewModel != nil else { return }
         addBtn.rx.tap.subscribe(onNext: { [weak self] _ in
@@ -66,5 +65,19 @@ class SimpleListViewModel: ASMListViewModel<Model, SimpleListCellViewModel> {
         let title = "This is your random number: \(number)"
         let cvm = SimpleListCellViewModel(model: SimpleModel(withTitle: title))
         itemsSource.append(cvm)
+        
+        if itemsSource.countElements() == 20 {
+            canLoadMore = false
+        }
+    }
+    
+    override func loadMoreItem(context: ASBatchContext) {
+        add()
+        add()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            context.completeBatchFetching(true)
+        }
+        
+        print("load more")
     }
 }

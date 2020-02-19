@@ -47,10 +47,13 @@ public protocol IASMListViewModel: IASMViewModel {
     var rxSelectedItem: BehaviorRelay<CellViewModelElement?> { get }
     var rxSelectedIndex: BehaviorRelay<IndexPath?> { get }
     
+    var canLoadMore: Bool { get set }
+    var rxIsLoadingMore: BehaviorRelay<Bool> { get set }
+    var rxIsLoading: BehaviorRelay<Bool> { get set }
+    
     func selectedItemDidChange(_ cellViewModel: CellViewModelElement)
+    func loadMoreItem(context: ASBatchContext)
 }
-
-
 
 
 

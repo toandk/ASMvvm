@@ -8,6 +8,7 @@
 import Foundation
 import RxSwift
 import RxCocoa
+import AsyncDisplayKit
 
 protocol IReactable {
     var isReacted: Bool { get set }
@@ -71,6 +72,15 @@ open class ASMViewModel<M>: NSObject, IASMViewModel, IReactable {
  By using this list, ListPage will render the cell and assign ViewModel to it respectively
  */
 open class ASMListViewModel<M, CVM: IASMGenericViewModel>: ASMViewModel<M>, IASMListViewModel {
+    open var canLoadMore: Bool = true
+    
+    open var rxIsLoadingMore = BehaviorRelay<Bool>(value: false)
+    
+    open var rxIsLoading = BehaviorRelay<Bool>(value: false)
+    
+    open func loadMoreItem(context: ASBatchContext) {
+        
+    }
     
     public typealias CellViewModelElement = CVM
     

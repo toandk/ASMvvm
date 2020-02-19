@@ -11,38 +11,32 @@ import AsyncDisplayKit
 import RxASDataSources
 import DTMvvm
 
-open class ASMListView<VM: IASMListViewModel>: ASMView<VM> {
+open class ASMListView<VM: IASMListViewModel>: ASMView<VM>, ASTableDelegate {
 
     public typealias CVM = VM.CellViewModelElement
     
-    public let tableView: ASTableNode
+    public var tableNode: ASTableNode!
     
     public var dataSource: RxASTableAnimatedDataSource<ASMSectionList<CVM>>?
     
     public override init(viewModel: VM? = nil) {
-        tableView = ASTableNode(style: .plain)
+        tableNode = ASTableNode(style: .plain)
         super.init(viewModel: viewModel)
     }
     
     override func setup() {
-        tableView.backgroundColor = .clear
-        addSubnode(tableView)
+        tableNode.backgroundColor = .clear
+        tableNode.view.separatorStyle = .none
+        addSubnode(tableNode)
+        tableNode.delegate = self
         
         super.setup()
     }
     
-    open override func initialize() {
-        
-    }
-    
-    open override func destroy() {
-        super.destroy()
-        tableView.removeFromSupernode()
-    }
-    
     /// Every time the viewModel changed, this method will be called again, so make sure to call super for ListPage to work
     open override func bindViewAndViewModel() {
-        tableView.rx.itemSelected.asObservable().subscribe(onNext: onItemSelected) => disposeBag
+        guard let tableNode = tableNode, dataSource == nil else { return }
+        tableNode.rx.itemSelected.asObservable().subscribe(onNext: onItemSelected) => disposeBag
         
         let configureCell: ASTableSectionedDataSource<ASMSectionList<CVM>>.ConfigureCell = { (_, tableNode, index, i) in
             return self.configureCell(index: index, cellVM: i)
@@ -53,7 +47,7 @@ open class ASMListView<VM: IASMListViewModel>: ASMView<VM> {
         )
         
         viewModel?.itemsSource.rxInnerSources
-            .bind(to: tableView.rx.items(dataSource: dataSource!)) => disposeBag
+            .bind(to: tableNode.rx.items(dataSource: dataSource!)) => disposeBag
     }
     
     private func onItemSelected(_ indexPath: IndexPath) {
@@ -72,5 +66,21 @@ open class ASMListView<VM: IASMListViewModel>: ASMView<VM> {
     
     open func configureCell(index: IndexPath, cellVM: CVM) -> ASCellNode {
         fatalError("Subclasses have to implement this method.")
+    }
+    
+    public func shouldBatchFetch(for tableNode: ASTableNode) -> Bool {
+        if let viewModel = viewModel,
+        viewModel.itemsSource.countElements() > 0,
+        viewModel.canLoadMore,
+        !viewModel.rxIsLoading.value,
+        !viewModel.rxIsLoadingMore.value {
+            return true
+        }
+        return false
+    }
+    
+    public func tableNode(_ tableNode: ASTableNode, willBeginBatchFetchWith context: ASBatchContext) {
+        context.beginBatchFetching()
+        viewModel?.loadMoreItem(context: context)
     }
 }
