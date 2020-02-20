@@ -59,7 +59,7 @@ open class ASMTableController<VM: IASMListViewModel>: ASMViewController<VM>, AST
     open func bindLoadingNode() {
         let canShowLoading = viewModel?.canShowLoading ?? false
         if canShowLoading {
-            viewModel?.rxIsLoading.asDriver().drive(onNext: { [weak self] (isLoading) in
+            viewModel?.rxIsLoading.distinctUntilChanged().asDriver(onErrorJustReturn: false).drive(onNext: { [weak self] (isLoading) in
                 if isLoading {
                     self?.loadingNode.isHidden = false
                     self?.loadingNode.startAnimating()

@@ -60,7 +60,7 @@ open class ASMCollectionController<VM: IASMListViewModel>: ASMViewController<VM>
     open func bindLoadingNode() {
         let canShowLoading = viewModel?.canShowLoading ?? false
         if canShowLoading {
-            viewModel?.rxIsLoading.asDriver().drive(onNext: { [weak self] (isLoading) in
+            viewModel?.rxIsLoading.distinctUntilChanged().asDriver(onErrorJustReturn: false).drive(onNext: { [weak self] isLoading in
                 if isLoading {
                     self?.loadingNode.isHidden = false
                     self?.loadingNode.startAnimating()
