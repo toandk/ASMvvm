@@ -53,10 +53,22 @@ open class ASMTableController<VM: IASMListViewModel>: ASMViewController<VM>, AST
         
         viewModel?.itemsSource.rxInnerSources
             .bind(to: tableNode.rx.items(dataSource: dataSource!)) => disposeBag
+        bindLoadingNode()
+    }
+    
+    open func bindLoadingNode() {
         let canShowLoading = viewModel?.canShowLoading ?? false
         if canShowLoading {
-            viewModel?.rxIsLoading.bind(to: loadingNode.indicatorView!.rx.isAnimating) => disposeBag
-            viewModel?.rxIsLoading.map{ !$0 }.bind(to: loadingNode.indicatorView!.rx.isHidden) => disposeBag
+            viewModel?.rxIsLoading.asDriver().drive(onNext: { [weak self] (isLoading) in
+                if isLoading {
+                    self?.loadingNode.isHidden = false
+                    self?.loadingNode.startAnimating()
+                }
+                else {
+                    self?.loadingNode.stopAnimating()
+                    self?.loadingNode.isHidden = true
+                }
+            }) => disposeBag
         }
     }
     
