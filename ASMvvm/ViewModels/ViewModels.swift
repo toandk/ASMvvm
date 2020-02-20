@@ -72,7 +72,9 @@ open class ASMViewModel<M>: NSObject, IASMViewModel, IReactable {
  By using this list, ListPage will render the cell and assign ViewModel to it respectively
  */
 open class ASMListViewModel<M, CVM: IASMGenericViewModel>: ASMViewModel<M>, IASMListViewModel {
+    
     open var canLoadMore: Bool = true
+    open var canShowLoading = false
     
     open var rxIsLoadingMore = BehaviorRelay<Bool>(value: false)
     

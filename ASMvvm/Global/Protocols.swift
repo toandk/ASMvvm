@@ -47,6 +47,7 @@ public protocol IASMListViewModel: IASMViewModel {
     var rxSelectedItem: BehaviorRelay<CellViewModelElement?> { get }
     var rxSelectedIndex: BehaviorRelay<IndexPath?> { get }
     
+    var canShowLoading: Bool { get set }
     var canLoadMore: Bool { get set }
     var rxIsLoadingMore: BehaviorRelay<Bool> { get set }
     var rxIsLoading: BehaviorRelay<Bool> { get set }

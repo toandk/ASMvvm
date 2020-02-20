@@ -39,8 +39,6 @@ class ViewController: ASMTableController<SimpleListViewModel> {
         addBtn.rx.tap.subscribe(onNext: { [weak self] _ in
             self?.viewModel?.add()
         }) => disposeBag
-        viewModel?.rxIsLoading.bind(to: loadingNode.indicatorView!.rx.isAnimating) => disposeBag
-        viewModel?.rxIsLoading.map{ !$0 }.bind(to: loadingNode.indicatorView!.rx.isHidden) => disposeBag
     }
     
     override func configureCell(index: IndexPath, cellVM: SimpleListCellViewModel) -> ASCellNode {

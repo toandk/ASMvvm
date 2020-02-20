@@ -33,7 +33,9 @@ open class ASMTableController<VM: IASMListViewModel>: ASMViewController<VM>, AST
     }
     
     open override func layoutNode(node: ASDisplayNode, constrainedSize: ASSizeRange) -> ASLayoutSpec {
-        return ASInsetLayoutSpec(insets: UIEdgeInsets.zero, child: tableNode)
+        let layout = ASInsetLayoutSpec(insets: UIEdgeInsets.zero, child: tableNode)
+        let canShowLoading = viewModel?.canShowLoading ?? false
+        return canShowLoading ? layoutCenterView(layout, view: loadingNode) : layout
     }
     
     /// Every time the viewModel changed, this method will be called again, so make sure to call super for ListPage to work
@@ -51,6 +53,11 @@ open class ASMTableController<VM: IASMListViewModel>: ASMViewController<VM>, AST
         
         viewModel?.itemsSource.rxInnerSources
             .bind(to: tableNode.rx.items(dataSource: dataSource!)) => disposeBag
+        let canShowLoading = viewModel?.canShowLoading ?? false
+        if canShowLoading {
+            viewModel?.rxIsLoading.bind(to: loadingNode.indicatorView!.rx.isAnimating) => disposeBag
+            viewModel?.rxIsLoading.map{ !$0 }.bind(to: loadingNode.indicatorView!.rx.isHidden) => disposeBag
+        }
     }
     
     private func onItemSelected(_ indexPath: IndexPath) {

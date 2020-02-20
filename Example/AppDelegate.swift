@@ -18,7 +18,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.backgroundColor = .white
-        let vc = ViewController(viewModel: SimpleListViewModel(model: nil))
+        let vm = SimpleListViewModel(model: nil)
+        vm.canShowLoading = true
+        let vc = ViewController(viewModel: vm)
         let navc = UINavigationController(rootViewController: vc)
         window?.rootViewController = navc
         window?.makeKeyAndVisible()
