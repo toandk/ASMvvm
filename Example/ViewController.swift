@@ -72,7 +72,7 @@ class SimpleListViewModel: ASMListViewModel<Model, SimpleListCellViewModel> {
         let number = Int.random(in: 1000...10000)
         let title = "This is your random number: \(number)"
         let cvm = SimpleListCellViewModel(model: SimpleModel(withTitle: title))
-        itemsSource.append(cvm)
+        itemsSource.append(cvm, to: 0, animated: true)
         
         if itemsSource.countElements() == 20 {
             canLoadMore = false

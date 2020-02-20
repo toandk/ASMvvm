@@ -47,9 +47,17 @@ open class ASMTableController<VM: IASMListViewModel>: ASMViewController<VM>, AST
             return self.configureCell(index: index, cellVM: i)
         }
         
+        let animatedType = getAnimationType()
         dataSource = RxASTableAnimatedDataSource<ASMSectionList<CVM>>(
+            animationConfiguration: animatedType,
             configureCell: configureCell
         )
+        
+        let ani1: RxASTableAnimatedDataSource<ASMSectionList<CVM>>.AnimationType = { _, _, _ in AnimationTransition.animated }
+        let ani2: RxASTableAnimatedDataSource<ASMSectionList<CVM>>.AnimationType =  { _, _, _ in AnimationTransition.reload }
+        viewModel?.itemsSource.rxAnimated.distinctUntilChanged().subscribe(onNext: { [weak self] animated in
+            self?.dataSource?.animationType = animated ? ani1 : ani2
+        }) => disposeBag
         
         viewModel?.itemsSource.rxInnerSources
             .bind(to: tableNode.rx.items(dataSource: dataSource!)) => disposeBag
@@ -104,5 +112,9 @@ open class ASMTableController<VM: IASMListViewModel>: ASMViewController<VM>, AST
     public func tableNode(_ tableNode: ASTableNode, willBeginBatchFetchWith context: ASBatchContext) {
         context.beginBatchFetching()
         viewModel?.loadMoreItem(context: context)
+    }
+    
+    public func getAnimationType() -> RowAnimation {
+        return RowAnimation(insertAnimation: .fade, reloadAnimation: .none, deleteAnimation: .automatic)
     }
 }

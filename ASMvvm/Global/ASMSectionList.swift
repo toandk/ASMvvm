@@ -139,7 +139,7 @@ public class ASMReactiveCollection<T>: SectionModelType where T: IdentifyEquatab
         return self[row, atSection]
     }
     
-    public var animated: Bool = true
+    public var rxAnimated = BehaviorRelay<Bool>(value: true)
     
     public var items: [ASMSectionList<T>] = []
     
@@ -151,7 +151,7 @@ public class ASMReactiveCollection<T>: SectionModelType where T: IdentifyEquatab
     
     public required init(original: ASMReactiveCollection<T>, items: [ASMSectionList<T>]) {
         self.items = items
-        self.animated = original.animated
+        self.rxAnimated.accept(original.rxAnimated.value)
     }
     
     public subscript(index: Int, section: Int) -> T {
@@ -189,37 +189,39 @@ public class ASMReactiveCollection<T>: SectionModelType where T: IdentifyEquatab
     
     // MARK: - section manipulations
     
-    public func reload(at section: Int = -1, animated: Bool? = nil) {
+    public func reload(at section: Int = -1, animated: Bool = true) {
         if items.count > 0 && section < items.count {
+            rxAnimated.accept(animated)
             rxInnerSources.accept(items)
         }
     }
     
-    public func reset(_ elements: [T], of section: Int = 0, animated: Bool? = nil) {
+    public func reset(_ elements: [T], of section: Int = 0, animated: Bool = true) {
         if section < items.count {
             items[section].removeAll()
             items[section].append(elements)
-            
+            rxAnimated.accept(animated)
             rxInnerSources.accept(items)
         }
     }
     
-    public func reset(_ sources: [[T]], animated: Bool? = nil) {
+    public func reset(_ sources: [[T]], animated: Bool = true) {
         reset(sources.map { ASMSectionList("", initialElements: $0) }, animated: animated)
     }
     
-    public func reset(_ sources: [ASMSectionList<T>], animated: Bool? = nil) {
+    public func reset(_ sources: [ASMSectionList<T>], animated: Bool = true) {
         items.removeAll()
         items.append(contentsOf: sources)
         
         reload(animated: animated)
     }
     
-    public func insertSection(_ key: Any, elements: [T], at index: Int, animated: Bool? = nil) {
+    public func insertSection(_ key: Any, elements: [T], at index: Int, animated: Bool = true) {
         insertSection(ASMSectionList<T>(key, initialElements: elements), at: index, animated: animated)
     }
     
-    public func insertSection(_ sectionList: ASMSectionList<T>, at index: Int, animated: Bool? = nil) {
+    public func insertSection(_ sectionList: ASMSectionList<T>, at index: Int, animated: Bool = true) {
+        rxAnimated.accept(animated)
         if items.count == 0 {
             items.append(sectionList)
         } else {
@@ -229,51 +231,54 @@ public class ASMReactiveCollection<T>: SectionModelType where T: IdentifyEquatab
         rxInnerSources.accept(items)
     }
     
-    public func appendSections(_ sectionLists: [ASMSectionList<T>], animated: Bool? = nil) {
+    public func appendSections(_ sectionLists: [ASMSectionList<T>], animated: Bool = true) {
         for sectionList in sectionLists {
             appendSection(sectionList, animated: animated)
         }
     }
     
-    public func appendSection(_ key: Any, elements: [T], animated: Bool? = nil) {
+    public func appendSection(_ key: Any, elements: [T], animated: Bool = true) {
         appendSection(ASMSectionList<T>(key, initialElements: elements), animated: animated)
     }
     
-    public func appendSection(_ sectionList: ASMSectionList<T>, animated: Bool? = nil) {
-        
+    public func appendSection(_ sectionList: ASMSectionList<T>, animated: Bool = true) {
+        rxAnimated.accept(animated)
         items.append(sectionList)
         rxInnerSources.accept(items)
     }
     
     @discardableResult
-    public func removeSection(at index: Int, animated: Bool? = nil) -> ASMSectionList<T>? {
+    public func removeSection(at index: Int, animated: Bool = true) -> ASMSectionList<T>? {
         guard index < items.count, index >= 0 else { return nil }
+        rxAnimated.accept(animated)
         let element = items.remove(at: index)
         rxInnerSources.accept(items)
         
         return element
     }
     
-    public func removeAll(animated: Bool? = nil) {
+    public func removeAll(animated: Bool = true) {
+        rxAnimated.accept(animated)
         items.removeAll()
         rxInnerSources.accept(items)
     }
     
     // MARK: - section elements manipulations
     
-    public func insert(_ element: T, at indexPath: IndexPath, animated: Bool? = nil) {
+    public func insert(_ element: T, at indexPath: IndexPath, animated: Bool = true) {
         insert(element, at: indexPath.row, of: indexPath.section, animated: animated)
     }
     
-    public func insert(_ element: T, at index: Int, of section: Int = 0, animated: Bool? = nil) {
+    public func insert(_ element: T, at index: Int, of section: Int = 0, animated: Bool = true) {
         insert([element], at: index, of: section, animated: animated)
     }
     
-    public func insert(_ elements: [T], at indexPath: IndexPath, animated: Bool? = nil) {
+    public func insert(_ elements: [T], at indexPath: IndexPath, animated: Bool = true) {
         insert(elements, at: indexPath.row, of: indexPath.section, animated: animated)
     }
     
-    public func insert(_ elements: [T], at index: Int, of section: Int = 0, animated: Bool? = nil) {
+    public func insert(_ elements: [T], at index: Int, of section: Int = 0, animated: Bool = true) {
+        rxAnimated.accept(animated)
         if section >= items.count {
             appendSection("", elements: elements, animated: animated)
             return
@@ -288,11 +293,12 @@ public class ASMReactiveCollection<T>: SectionModelType where T: IdentifyEquatab
         rxInnerSources.accept(items)
     }
     
-    public func append(_ element: T, to section: Int = 0, animated: Bool? = nil) {
+    public func append(_ element: T, to section: Int = 0, animated: Bool = true) {
         append([element], to: section, animated: animated)
     }
     
-    public func append(_ elements: [T], to section: Int = 0, animated: Bool? = nil) {
+    public func append(_ elements: [T], to section: Int = 0, animated: Bool = true) {
+        rxAnimated.accept(animated)
         if section >= items.count {
             appendSection("", elements: elements, animated: animated)
             return
@@ -303,13 +309,14 @@ public class ASMReactiveCollection<T>: SectionModelType where T: IdentifyEquatab
     }
     
     @discardableResult
-    public func remove(at indexPath: IndexPath, animated: Bool? = nil) -> T? {
+    public func remove(at indexPath: IndexPath, animated: Bool = true) -> T? {
         return remove(at: indexPath.row, of: indexPath.section, animated: animated)
     }
     
     @discardableResult
-    public func remove(at index: Int, of section: Int = 0, animated: Bool? = nil) -> T? {
+    public func remove(at index: Int, of section: Int = 0, animated: Bool = true) -> T? {
         if let element = items[section].remove(at: index) {
+            rxAnimated.accept(animated)
             rxInnerSources.accept(items)
             
             return element
@@ -319,20 +326,20 @@ public class ASMReactiveCollection<T>: SectionModelType where T: IdentifyEquatab
     }
     
     @discardableResult
-    public func remove(at indice: [Int], of section: Int = 0, animated: Bool? = nil) -> [T] {
+    public func remove(at indice: [Int], of section: Int = 0, animated: Bool = true) -> [T] {
         return remove(at: indice.map { IndexPath(row: $0, section: section) })
     }
     
     @discardableResult
-    public func remove(at indexPaths: [IndexPath], animated: Bool? = nil) -> [T] {
+    public func remove(at indexPaths: [IndexPath], animated: Bool = true) -> [T] {
         let removedElements = indexPaths.compactMap { items[$0.section].remove(at: $0.row) }
-        
+        rxAnimated.accept(animated)
         rxInnerSources.accept(items)
         
         return removedElements
     }
     
-    public func sort(by predicate: (T, T) throws -> Bool, at section: Int = 0, animated: Bool? = nil) rethrows {
+    public func sort(by predicate: (T, T) throws -> Bool, at section: Int = 0, animated: Bool = true) rethrows {
         let oldElements = items[section].allElements
         
         try items[section].sort(by: predicate)
@@ -349,11 +356,12 @@ public class ASMReactiveCollection<T>: SectionModelType where T: IdentifyEquatab
         }
         
         if fromIndexPaths.count == toIndexPaths.count {
+            rxAnimated.accept(animated)
             rxInnerSources.accept(items)
         }
     }
     
-    public func move(from fromIndexPaths: [IndexPath], to toIndexPaths: [IndexPath], animated: Bool? = nil) {
+    public func move(from fromIndexPaths: [IndexPath], to toIndexPaths: [IndexPath], animated: Bool = true) {
         guard fromIndexPaths.count == toIndexPaths.count else { return }
         
         var validIndice: [Int] = []
@@ -379,6 +387,7 @@ public class ASMReactiveCollection<T>: SectionModelType where T: IdentifyEquatab
         }
         
         if validIndice.count > 0 {
+            rxAnimated.accept(animated)
             rxInnerSources.accept(items)
         }
     }
