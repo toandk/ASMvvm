@@ -23,6 +23,8 @@ open class ASMTableController<VM: IASMListViewModel>: ASMViewController<VM>, AST
         tableNode = ASTableNode(style: .plain)
         super.init(viewModel: viewModel, node: ASDisplayNode())
         self.node.automaticallyManagesSubnodes = true
+        tableNode.view.separatorStyle = .none
+        tableNode.leadingScreensForBatching = 1
         tableNode.delegate = self
     }
     

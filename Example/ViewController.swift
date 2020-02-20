@@ -9,6 +9,7 @@
 import UIKit
 import AsyncDisplayKit
 import RxCocoa_Texture
+import RxCocoa
 import ASMvvm
 import DTMvvm
 
@@ -38,6 +39,8 @@ class ViewController: ASMTableController<SimpleListViewModel> {
         addBtn.rx.tap.subscribe(onNext: { [weak self] _ in
             self?.viewModel?.add()
         }) => disposeBag
+        viewModel?.rxIsLoading.bind(to: loadingNode.indicatorView!.rx.isAnimating) => disposeBag
+        viewModel?.rxIsLoading.map{ !$0 }.bind(to: loadingNode.indicatorView!.rx.isHidden) => disposeBag
     }
     
     override func configureCell(index: IndexPath, cellVM: SimpleListCellViewModel) -> ASCellNode {
@@ -54,11 +57,20 @@ class ViewController: ASMTableController<SimpleListViewModel> {
                                       justifyContent: .spaceBetween,
                                       alignItems: .stretch,
                                       children: [header, tableNode])
-        return stack
+        let loadingBox = ASRelativeLayoutSpec(horizontalPosition: .center, verticalPosition: .start, sizingOption: .minimumSize, child: loadingNode)
+        let background = ASBackgroundLayoutSpec(child: loadingBox, background: stack)
+        return background
     }
 }
 
 class SimpleListViewModel: ASMListViewModel<Model, SimpleListCellViewModel> {
+    
+    override func react() {
+        rxIsLoading.accept(true)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            self.rxIsLoading.accept(false)
+        }
+    }
     
     public func add() {
         let number = Int.random(in: 1000...10000)

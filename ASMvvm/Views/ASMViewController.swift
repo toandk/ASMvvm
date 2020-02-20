@@ -14,6 +14,8 @@ import DTMvvm
 open class ASMViewController<VM: IASMViewModel>: ASViewController<ASDisplayNode>, IView {
     public var disposeBag: DisposeBag? = DisposeBag()
     
+    public lazy var loadingNode = ASMLoadingNode(style: .gray)
+    
     private var _viewModel: VM?
     public var viewModel: VM? {
         get { return _viewModel }

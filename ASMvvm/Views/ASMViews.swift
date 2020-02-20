@@ -11,6 +11,51 @@ import RxSwift
 import AsyncDisplayKit
 import DTMvvm
 
+open class ASMEmptyNode: ASDisplayNode {
+    let imgNode = ASImageNode()
+    let textNode = ASTextNode()
+    
+    func setImage(_ image: UIImage) {
+        imgNode.image = image
+    }
+    
+    func setText(_ text: NSAttributedString) {
+        textNode.attributedText = text
+    }
+    
+    override open func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+        let stack = ASStackLayoutSpec(direction: .vertical, spacing: 20, justifyContent: .center, alignItems: .center, children: [imgNode, textNode])
+        return stack
+    }
+}
+
+open class ASMLoadingNode: ASDisplayNode {
+    
+    public var indicatorView: UIActivityIndicatorView? {
+        return self.view as? UIActivityIndicatorView
+    }
+    
+    public var loadingStyle: UIActivityIndicatorView.Style = .gray {
+        didSet {
+            (self.view as? UIActivityIndicatorView)?.style = loadingStyle
+        }
+    }
+    
+    public convenience init(style: UIActivityIndicatorView.Style) {
+        self.init(viewBlock: { () -> UIView in
+            return UIActivityIndicatorView(style: style)
+        }, didLoad: nil)
+    }
+    
+    public func startAnimating() {
+        indicatorView?.startAnimating()
+    }
+    
+    public func stopAnimating() {
+        indicatorView?.stopAnimating()
+    }
+}
+
 /// Based ASView that support ViewModel
 open class ASMView<VM: IASMGenericViewModel>: ASDisplayNode, IView {
     
