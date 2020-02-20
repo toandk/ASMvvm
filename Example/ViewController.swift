@@ -57,9 +57,7 @@ class ViewController: ASMTableController<SimpleListViewModel> {
                                       justifyContent: .spaceBetween,
                                       alignItems: .stretch,
                                       children: [header, tableNode])
-        let loadingBox = ASRelativeLayoutSpec(horizontalPosition: .center, verticalPosition: .start, sizingOption: .minimumSize, child: loadingNode)
-        let background = ASBackgroundLayoutSpec(child: loadingBox, background: stack)
-        return background
+        return layoutCenterView(stack, view: loadingNode)
     }
 }
 

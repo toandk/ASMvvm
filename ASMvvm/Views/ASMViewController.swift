@@ -93,4 +93,13 @@ open class ASMViewController<VM: IASMViewModel>: ASViewController<ASDisplayNode>
     open func layoutNode(node: ASDisplayNode, constrainedSize: ASSizeRange) -> ASLayoutSpec {
         return ASInsetLayoutSpec(insets: UIEdgeInsets.zero, child: node)
     }
+    
+    open func layoutCenterView(_ layout: ASLayoutSpec, view: ASDisplayNode? = nil) -> ASLayoutSpec {
+        if view == nil {
+            return layout
+        }
+        let centerBox = ASRelativeLayoutSpec(horizontalPosition: .center, verticalPosition: .start, sizingOption: .minimumSize, child: loadingNode)
+        let background = ASBackgroundLayoutSpec(child: centerBox, background: layout)
+        return background
+    }
 }
