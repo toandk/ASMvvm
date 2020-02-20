@@ -27,7 +27,11 @@ class ViewController: ASMTableController<SimpleListViewModel> {
         
         addBtn.style.preferredSize = CGSize(width: 60, height: 40)
         addBtn.backgroundColor = .yellow
-        
+        tableNode.onDidLoad { [weak self] _ in
+            guard let self = self else { return }
+            let refreshControl = self.tableNode.view.addPullToRefresh()
+            refreshControl.addTarget(self, action: #selector(self.handleRefresh), for: .valueChanged)
+        }
 //        viewModel?.add()
 //        viewModel?.add()
     }
@@ -56,6 +60,13 @@ class ViewController: ASMTableController<SimpleListViewModel> {
                                       alignItems: .stretch,
                                       children: [header, tableNode])
         return layoutCenterView(stack, view: loadingNode)
+    }
+    
+    @objc func handleRefresh() {
+        self.tableNode.view.getRefreshControl()?.beginRefreshing()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            self.viewModel?.itemsSource.reset([[]])            
+        }
     }
 }
 

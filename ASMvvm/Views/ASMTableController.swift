@@ -75,6 +75,7 @@ open class ASMTableController<VM: IASMListViewModel>: ASMViewController<VM>, AST
                 else {
                     self?.loadingNode.stopAnimating()
                     self?.loadingNode.isHidden = true
+                    self?.tableNode.view.getRefreshControl()?.endRefreshing()
                 }
             }) => disposeBag
         }
