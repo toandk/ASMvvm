@@ -45,9 +45,12 @@ class ViewController: ASMTableController<SimpleListViewModel> {
         }) => disposeBag
     }
     
-    override func configureCell(index: IndexPath, cellVM: SimpleListCellViewModel) -> ASCellNode {
-        let cell = SimpleListCell(viewModel: cellVM)
-        return cell
+    override func configureCellBlock(index: IndexPath, cellVM: SimpleListCellViewModel) -> ASCellNodeBlock {
+        let cellNodeBlock = { () -> ASCellNode in
+            let cell = SimpleListCell(viewModel: cellVM)
+            return cell
+        }
+        return cellNodeBlock
     }
     
     override func layoutNode(node: ASDisplayNode, constrainedSize: ASSizeRange) -> ASLayoutSpec {

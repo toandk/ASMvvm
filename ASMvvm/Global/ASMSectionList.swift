@@ -187,6 +187,10 @@ public class ASMReactiveCollection<T>: SectionModelType where T: IdentifyEquatab
         return items[section].count
     }
     
+    public func isValid(indexPath: IndexPath) -> Bool {
+        return items.count > 0 && indexPath.section < items.count && indexPath.row < items[indexPath.section].count
+    }
+    
     // MARK: - section manipulations
     
     public func reload(at section: Int = -1, animated: Bool = true) {

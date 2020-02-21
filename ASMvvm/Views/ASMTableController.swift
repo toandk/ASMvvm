@@ -43,14 +43,17 @@ open class ASMTableController<VM: IASMListViewModel>: ASMViewController<VM>, AST
         guard let tableNode = tableNode, dataSource == nil else { return }
         tableNode.rx.itemSelected.asObservable().subscribe(onNext: onItemSelected) => disposeBag
         
-        let configureCell: ASTableSectionedDataSource<ASMSectionList<CVM>>.ConfigureCell = { (_, tableNode, index, i) in
-            return self.configureCell(index: index, cellVM: i)
+//        let configureCell: ASTableSectionedDataSource<ASMSectionList<CVM>>.ConfigureCell = { (_, tableNode, index, i) in
+//            return self.configureCell(index: index, cellVM: i)
+//        }
+        let configureCellBlock: ASTableSectionedDataSource<ASMSectionList<CVM>>.ConfigureCellBlock = { (_, tableNode, index, i) in
+            return self.configureCellBlock(index: index, cellVM: i)
         }
         
         let animatedType = getAnimationType()
         dataSource = RxASTableAnimatedDataSource<ASMSectionList<CVM>>(
             animationConfiguration: animatedType,
-            configureCell: configureCell
+            configureCellBlock: configureCellBlock
         )
         
         let ani1: RxASTableAnimatedDataSource<ASMSectionList<CVM>>.AnimationType = { _, _, _ in AnimationTransition.animated }
@@ -96,6 +99,10 @@ open class ASMTableController<VM: IASMListViewModel>: ASMViewController<VM>, AST
     open func selectedItemDidChange(_ cellViewModel: CVM) { }
     
     open func configureCell(index: IndexPath, cellVM: CVM) -> ASCellNode {
+        fatalError("Subclasses have to implement this method.")
+    }
+    
+    open func configureCellBlock(index: IndexPath, cellVM: CVM) -> ASCellNodeBlock {
         fatalError("Subclasses have to implement this method.")
     }
     
