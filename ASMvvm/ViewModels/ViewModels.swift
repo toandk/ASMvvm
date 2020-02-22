@@ -80,7 +80,7 @@ open class ASMListViewModel<M, CVM: IASMGenericViewModel>: ASMViewModel<M>, IASM
     
     open var rxIsLoading = BehaviorRelay<Bool>(value: false)
     
-    open func loadMoreItem(context: ASBatchContext) {
+    open func loadMoreItem() {
         
     }
     
@@ -91,6 +91,8 @@ open class ASMListViewModel<M, CVM: IASMGenericViewModel>: ASMViewModel<M>, IASM
     public let itemsSource = ASMReactiveCollection<CVM>()
     public let rxSelectedItem = BehaviorRelay<CVM?>(value: nil)
     public let rxSelectedIndex = BehaviorRelay<IndexPath?>(value: nil)
+    
+    public weak var fetchingContext: ASBatchContext?
     
     required public init(model: M? = nil) {
         super.init(model: model)
@@ -107,6 +109,13 @@ open class ASMListViewModel<M, CVM: IASMGenericViewModel>: ASMViewModel<M>, IASM
     }
     
     open func selectedItemDidChange(_ cellViewModel: CVM) { }
+    
+    open func finishFetching() {
+        self.rxIsLoading.accept(false)
+        self.rxIsLoadingMore.accept(false)
+        fetchingContext?.completeBatchFetching(true)
+        fetchingContext = nil
+    }
 }
 
 /**

@@ -51,9 +51,10 @@ public protocol IASMListViewModel: IASMViewModel {
     var canLoadMore: Bool { get set }
     var rxIsLoadingMore: BehaviorRelay<Bool> { get set }
     var rxIsLoading: BehaviorRelay<Bool> { get set }
+    var fetchingContext: ASBatchContext? { get set }
     
     func selectedItemDidChange(_ cellViewModel: CellViewModelElement)
-    func loadMoreItem(context: ASBatchContext)
+    func loadMoreItem()
 }
 
 

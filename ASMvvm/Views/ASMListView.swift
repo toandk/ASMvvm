@@ -81,6 +81,7 @@ open class ASMListView<VM: IASMListViewModel>: ASMView<VM>, ASTableDelegate {
     
     public func tableNode(_ tableNode: ASTableNode, willBeginBatchFetchWith context: ASBatchContext) {
         context.beginBatchFetching()
-        viewModel?.loadMoreItem(context: context)
+        viewModel?.fetchingContext = context
+        viewModel?.loadMoreItem()
     }
 }

@@ -93,12 +93,9 @@ class SimpleListViewModel: ASMListViewModel<Model, SimpleListCellViewModel> {
         }
     }
     
-    override func loadMoreItem(context: ASBatchContext) {
+    override func loadMoreItem() {
         add()
         add()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            context.completeBatchFetching(true)
-        }
         
         print("load more")
     }
