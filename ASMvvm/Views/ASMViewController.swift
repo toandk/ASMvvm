@@ -37,6 +37,7 @@ open class ASMViewController<VM: IASMViewModel>: ASViewController<ASDisplayNode>
     public init(viewModel: VM? = nil, node: ASDisplayNode) {
         _viewModel = viewModel
         super.init(node: node)
+        self.node.automaticallyManagesSubnodes = true
         self.node.layoutSpecBlock = self.layoutNode
     }
     

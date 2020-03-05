@@ -18,11 +18,13 @@ open class ASMTableController<VM: IASMListViewModel>: ASMViewController<VM>, AST
     public var tableNode: ASTableNode!
     
     public var dataSource: RxASTableAnimatedDataSource<ASMSectionList<CVM>>?
+    private var lastTimeFetching: TimeInterval = 0
+    private var FETCH_THREDHOLD: TimeInterval = 1 // Only allow fetching after 1 second
+    
     
     public init(viewModel: VM? = nil) {
         tableNode = ASTableNode(style: .plain)
         super.init(viewModel: viewModel, node: ASDisplayNode())
-        self.node.automaticallyManagesSubnodes = true
         tableNode.view.separatorStyle = .none
         tableNode.leadingScreensForBatching = 1
         tableNode.delegate = self
@@ -107,17 +109,20 @@ open class ASMTableController<VM: IASMListViewModel>: ASMViewController<VM>, AST
     }
     
     public func shouldBatchFetch(for tableNode: ASTableNode) -> Bool {
+        let timeDiff = CACurrentMediaTime() - lastTimeFetching
         if let viewModel = viewModel,
-        viewModel.itemsSource.countElements() > 0,
-        viewModel.canLoadMore,
-        !viewModel.rxIsLoading.value,
-        !viewModel.rxIsLoadingMore.value {
-            return true
-        }
+            timeDiff > FETCH_THREDHOLD,
+            viewModel.itemsSource.countElements() > 0,
+            viewModel.canLoadMore,
+            !viewModel.rxIsLoading.value,
+            !viewModel.rxIsLoadingMore.value {
+                return true
+            }
         return false
     }
     
     public func tableNode(_ tableNode: ASTableNode, willBeginBatchFetchWith context: ASBatchContext) {
+        lastTimeFetching = CACurrentMediaTime()
         context.beginBatchFetching()
         viewModel?.fetchingContext = context
         viewModel?.loadMoreItem()

@@ -90,6 +90,7 @@ open class ASMView<VM: IASMGenericViewModel>: ASDisplayNode, IView {
     deinit { destroy() }
     
     func setup() {
+        automaticallyManagesSubnodes = true
         backgroundColor = .clear
         
         initialize()
