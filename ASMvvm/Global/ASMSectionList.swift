@@ -423,4 +423,15 @@ public class ASMReactiveCollection<T>: SectionModelType where T: IdentifyEquatab
     public func lastIndex(where predicate: (T) throws -> Bool, at section: Int) rethrows -> Int? {
         return try items[0].lastIndex(where: predicate)
     }
+    
+    public func indexPath(of item: T) -> IndexPath? {
+        for i in 0..<count {
+            for j in 0..<items[i].count {
+                if items[i][j] == item {
+                    return IndexPath(row: j, section: i)
+                }
+            }
+        }
+        return nil
+    }
 }
