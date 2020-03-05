@@ -138,6 +138,7 @@ open class ASMCellNode<VM: IASMGenericViewModel>: ASCellNode, IView {
     public init(viewModel: VM) {
         super.init()
         self.viewModel = viewModel
+        automaticallyManagesSubnodes = true
         setup()
     }
     
