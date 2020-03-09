@@ -29,6 +29,11 @@ public extension ASStackLayoutSpec {
         self.alignItems = value
         return self
     }
+    
+    func justifyContent(_ value: ASStackLayoutJustifyContent) -> ASStackLayoutSpec {
+        self.justifyContent = value
+        return self
+    }
 }
 
 public extension ASLayoutSpec {
