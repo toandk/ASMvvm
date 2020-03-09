@@ -34,6 +34,14 @@ public extension ASStackLayoutSpec {
         self.justifyContent = value
         return self
     }
+    
+    func distributeChildrenEqually() -> ASStackLayoutSpec {
+        let children = self.children ?? []
+        for child in children {
+            child.style.flexBasis = ASDimensionMakeWithFraction(CGFloat(1)/CGFloat(children.count))
+        }
+        return self
+    }
 }
 
 public extension ASLayoutSpec {
