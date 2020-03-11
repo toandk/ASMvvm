@@ -40,7 +40,8 @@ open class ASMCollectionView<VM: IASMListViewModel>: ASMView<VM> {
     
     open override func destroy() {
         super.destroy()
-        collectionNode.removeFromSupernode()
+//        collectionNode.removeFromSupernode()
+        viewModel?.destroy()
     }
     
     /// Every time the viewModel changed, this method will be called again, so make sure to call super for ListPage to work

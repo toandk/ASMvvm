@@ -104,20 +104,7 @@ open class ASMView<VM: IASMGenericViewModel>: ASDisplayNode, IView {
     
     open func destroy() {
         disposeBag = DisposeBag()
-        if !isSubnodeOfCellNode() {
-            viewModel?.destroy()
-        }
-    }
-    
-    func isSubnodeOfCellNode() -> Bool {
-        var supernode: ASDisplayNode? = self.supernode
-        while supernode != nil {
-            if supernode is ASCellNode {
-                return true
-            }
-            supernode = supernode?.supernode
-        }
-        return false
+//        viewModel?.destroy()
     }
     
     open func initialize() {}

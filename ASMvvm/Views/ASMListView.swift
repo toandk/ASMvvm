@@ -24,6 +24,11 @@ open class ASMListView<VM: IASMListViewModel>: ASMView<VM>, ASTableDelegate {
         super.init(viewModel: viewModel)
     }
     
+    open override func destroy() {
+        super.destroy()
+        viewModel?.destroy()
+    }
+    
     override func setup() {
         tableNode.backgroundColor = .clear
         tableNode.view.separatorStyle = .none
