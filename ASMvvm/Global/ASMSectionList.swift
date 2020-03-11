@@ -9,6 +9,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 import Differentiator
+import DTMvvm
 
 /// Section list data sources
 public class ASMSectionList<T>: AnimatableSectionModelType where T: IdentifyEquatable {
@@ -83,7 +84,9 @@ public class ASMSectionList<T>: AnimatableSectionModelType where T: IdentifyEqua
         guard index < items.count, index >= 0 else {
             return nil
         }
-        return items.remove(at: index)
+        let item = items.remove(at: index)
+        (item as? IDestroyable)?.destroy()
+        return item
     }
     
     fileprivate func remove(at indice: [Int]) {
@@ -125,6 +128,12 @@ public class ASMSectionList<T>: AnimatableSectionModelType where T: IdentifyEqua
     
     fileprivate func compactMap<U>(_ transform: (T) throws -> U?) rethrows -> [U] {
         return try items.compactMap(transform)
+    }
+    
+    func destroyItems() {
+        forEach { (_, item) in
+            (item as? IDestroyable)?.destroy()
+        }
     }
 }
 
@@ -254,6 +263,7 @@ public class ASMReactiveCollection<T>: SectionModelType where T: IdentifyEquatab
     @discardableResult
     public func removeSection(at index: Int, animated: Bool = true) -> ASMSectionList<T>? {
         guard index < items.count, index >= 0 else { return nil }
+        items[index].destroyItems()
         rxAnimated.accept(animated)
         let element = items.remove(at: index)
         rxInnerSources.accept(items)
@@ -262,6 +272,9 @@ public class ASMReactiveCollection<T>: SectionModelType where T: IdentifyEquatab
     }
     
     public func removeAll(animated: Bool = true) {
+        forEach { (_, section) in
+            section.destroyItems()
+        }
         rxAnimated.accept(animated)
         items.removeAll()
         rxInnerSources.accept(items)

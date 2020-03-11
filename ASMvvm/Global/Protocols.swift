@@ -27,11 +27,11 @@ public protocol IASMGenericViewModel: IDestroyable, IdentifyEquatable where Iden
     init(model: ModelElement?)
 }
 
-public extension IASMGenericViewModel {
-    var identity : Identity {
-        return model.debugDescription
-    }
-}
+//public extension IASMGenericViewModel {
+//    var identity : Identity {
+//        return model.debugDescription
+//    }
+//}
 
 /// Base ViewModel type for Page (UIViewController), View (UIVIew)
 public protocol IASMViewModel: IASMGenericViewModel {

@@ -22,6 +22,10 @@ open class ASMViewModel<M>: NSObject, IASMViewModel, IReactable {
     
     public typealias ModelElement = M
     
+    open var identity : Identity {
+        return model.debugDescription
+    }
+    
     private var _model: M?
     public var model: M? {
         get { return _model }
@@ -132,6 +136,10 @@ protocol IIndexable: class {
 open class ASMCellViewModel<M>: NSObject, IASMGenericViewModel, IIndexable, IReactable {
     
     public typealias ModelElement = M
+    
+    open var identity : Identity {
+        return model.debugDescription
+    }
     
     private var _model: M?
     public var model: M? {

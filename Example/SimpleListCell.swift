@@ -59,6 +59,10 @@ class SimpleListCellViewModel: ASMCellViewModel<SimpleModel> {
     
     let rxTitle = BehaviorRelay<String?>(value: nil)
     
+    override var identity : Identity {
+        return model?.title ?? ""
+    }
+    
     override func react() {
         rxTitle.accept(model?.title)
     }

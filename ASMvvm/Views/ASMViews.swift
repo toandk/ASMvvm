@@ -170,7 +170,7 @@ open class ASMCellNode<VM: IASMGenericViewModel>: ASCellNode, IView {
     
     open func destroy() {
         disposeBag = DisposeBag()
-        viewModel?.destroy()
+//        viewModel?.destroy()
     }
     
     open func initialize() {}
