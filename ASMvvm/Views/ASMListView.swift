@@ -89,4 +89,12 @@ open class ASMListView<VM: IASMListViewModel>: ASMView<VM>, ASTableDelegate {
         viewModel?.fetchingContext = context
         viewModel?.loadMoreItem()
     }
+    
+    public func tableNode(_ tableNode: ASTableNode, willDisplayRowWith node: ASCellNode) {
+        
+    }
+    
+    public func tableNode(_ tableNode: ASTableNode, didEndDisplayingRowWith node: ASCellNode) {
+        
+    }
 }

@@ -131,4 +131,12 @@ open class ASMTableController<VM: IASMListViewModel>: ASMViewController<VM>, AST
     public func getAnimationType() -> RowAnimation {
         return RowAnimation(insertAnimation: .fade, reloadAnimation: .none, deleteAnimation: .automatic)
     }
+    
+    public func tableNode(_ tableNode: ASTableNode, willDisplayRowWith node: ASCellNode) {
+        
+    }
+    
+    public func tableNode(_ tableNode: ASTableNode, didEndDisplayingRowWith node: ASCellNode) {
+        
+    }
 }
