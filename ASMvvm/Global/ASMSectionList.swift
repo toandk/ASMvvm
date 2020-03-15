@@ -63,19 +63,19 @@ public class ASMSectionList<T>: AnimatableSectionModelType where T: IdentifyEqua
         }
     }
     
-    fileprivate func insert(_ element: T, at index: Int) {
+    public func insert(_ element: T, at index: Int) {
         items.insert(element, at: index)
     }
     
-    fileprivate func insert(_ elements: [T], at index: Int) {
+    public func insert(_ elements: [T], at index: Int) {
         items.insert(contentsOf: elements, at: index)
     }
     
-    fileprivate func append(_ element: T) {
+    public func append(_ element: T) {
         items.append(element)
     }
     
-    fileprivate func append(_ elements: [T]) {
+    public func append(_ elements: [T]) {
         items.append(contentsOf: elements)
     }
     
@@ -89,12 +89,12 @@ public class ASMSectionList<T>: AnimatableSectionModelType where T: IdentifyEqua
         return item
     }
     
-    fileprivate func remove(at indice: [Int]) {
+    public func remove(at indice: [Int]) {
         let newSources = items.enumerated().compactMap { indice.contains($0.offset) ? nil : $0.element }
         items = newSources
     }
     
-    fileprivate func removeAll() {
+    public func removeAll() {
         items.removeAll()
     }
     
@@ -103,30 +103,30 @@ public class ASMSectionList<T>: AnimatableSectionModelType where T: IdentifyEqua
     }
     
     @discardableResult
-    fileprivate func firstIndex(of element: T) -> Int? {
+    public func firstIndex(of element: T) -> Int? {
         return items.firstIndex(of: element)
     }
     
     @discardableResult
-    fileprivate func lastIndex(of element: T) -> Int? {
+    public func lastIndex(of element: T) -> Int? {
         return items.lastIndex(of: element)
     }
     
     @discardableResult
-    fileprivate func firstIndex(where predicate: (T) throws -> Bool) rethrows -> Int? {
+    public func firstIndex(where predicate: (T) throws -> Bool) rethrows -> Int? {
         return try items.firstIndex(where: predicate)
     }
     
     @discardableResult
-    fileprivate func lastIndex(where predicate: (T) throws -> Bool) rethrows -> Int? {
+    public func lastIndex(where predicate: (T) throws -> Bool) rethrows -> Int? {
         return try items.lastIndex(where: predicate)
     }
     
-    fileprivate func map<U>(_ transform: (T) throws -> U) rethrows -> [U] {
+    public func map<U>(_ transform: (T) throws -> U) rethrows -> [U] {
         return try items.map(transform)
     }
     
-    fileprivate func compactMap<U>(_ transform: (T) throws -> U?) rethrows -> [U] {
+    public func compactMap<U>(_ transform: (T) throws -> U?) rethrows -> [U] {
         return try items.compactMap(transform)
     }
     
@@ -183,6 +183,14 @@ public class ASMReactiveCollection<T>: SectionModelType where T: IdentifyEquatab
     
     public var last: ASMSectionList<T>? {
         return items.last
+    }
+    
+    public func allElements() -> [T] {
+        var allItems: [T] = []
+        for section in items {
+            allItems.append(contentsOf: section.allElements)
+        }
+        return allItems
     }
     
     public func forEach(_ body: ((Int, ASMSectionList<T>) -> ())) {
@@ -245,9 +253,9 @@ public class ASMReactiveCollection<T>: SectionModelType where T: IdentifyEquatab
     }
     
     public func appendSections(_ sectionLists: [ASMSectionList<T>], animated: Bool = true) {
-        for sectionList in sectionLists {
-            appendSection(sectionList, animated: animated)
-        }
+        rxAnimated.accept(animated)
+        items.append(contentsOf: sectionLists)
+        rxInnerSources.accept(items)
     }
     
     public func appendSection(_ key: Any, elements: [T], animated: Bool = true) {
