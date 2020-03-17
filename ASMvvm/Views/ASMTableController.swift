@@ -48,7 +48,11 @@ open class ASMTableController<VM: IASMListViewModel>: ASMViewController<VM>, AST
 //        let configureCell: ASTableSectionedDataSource<ASMSectionList<CVM>>.ConfigureCell = { (_, tableNode, index, i) in
 //            return self.configureCell(index: index, cellVM: i)
 //        }
-        let configureCellBlock: ASTableSectionedDataSource<ASMSectionList<CVM>>.ConfigureCellBlock = { (_, tableNode, index, i) in
+        let configureCellBlock: ASTableSectionedDataSource<ASMSectionList<CVM>>.ConfigureCellBlock = { [weak self] (_, tableNode, index, i) in
+            guard let self = self else {
+                let cellBlock = { ASCellNode() }
+                return cellBlock
+            }
             return self.configureCellBlock(index: index, cellVM: i)
         }
         

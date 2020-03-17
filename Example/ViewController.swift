@@ -20,6 +20,10 @@ class ViewController: ASMTableController<SimpleListViewModel> {
         return button
     }()
     
+    deinit {
+        print("deinit VC")
+    }
+    
     let headerNode = ASDisplayNode()
 
     override func initialize() {

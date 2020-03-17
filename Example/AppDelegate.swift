@@ -21,7 +21,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let vm = SimpleListViewModel(model: nil)
         vm.canShowLoading = true
         let vc = ViewController(viewModel: vm)
-        let navc = UINavigationController(rootViewController: vc)
+        let vc2 = UIViewController()
+        let navc = UINavigationController(rootViewController: vc2)
+        navc.pushViewController(vc, animated: true)
         window?.rootViewController = navc
         window?.makeKeyAndVisible()
         return true
