@@ -45,9 +45,6 @@ open class ASMTableController<VM: IASMListViewModel>: ASMViewController<VM>, AST
         guard let tableNode = tableNode, dataSource == nil else { return }
         tableNode.rx.itemSelected.asObservable().subscribe(onNext: onItemSelected) => disposeBag
         
-//        let configureCell: ASTableSectionedDataSource<ASMSectionList<CVM>>.ConfigureCell = { (_, tableNode, index, i) in
-//            return self.configureCell(index: index, cellVM: i)
-//        }
         let configureCellBlock: ASTableSectionedDataSource<ASMSectionList<CVM>>.ConfigureCellBlock = { [weak self] (_, tableNode, index, i) in
             guard let self = self else {
                 let cellBlock = { ASCellNode() }
@@ -112,7 +109,7 @@ open class ASMTableController<VM: IASMListViewModel>: ASMViewController<VM>, AST
         fatalError("Subclasses have to implement this method.")
     }
     
-    public func shouldBatchFetch(for tableNode: ASTableNode) -> Bool {
+    open func shouldBatchFetch(for tableNode: ASTableNode) -> Bool {
         let timeDiff = CACurrentMediaTime() - lastTimeFetching
         if let viewModel = viewModel,
             timeDiff > FETCH_THREDHOLD,
@@ -125,22 +122,22 @@ open class ASMTableController<VM: IASMListViewModel>: ASMViewController<VM>, AST
         return false
     }
     
-    public func tableNode(_ tableNode: ASTableNode, willBeginBatchFetchWith context: ASBatchContext) {
+    open func tableNode(_ tableNode: ASTableNode, willBeginBatchFetchWith context: ASBatchContext) {
         lastTimeFetching = CACurrentMediaTime()
         context.beginBatchFetching()
         viewModel?.fetchingContext = context
         viewModel?.loadMoreItem()
     }
     
-    public func getAnimationType() -> RowAnimation {
+    open func getAnimationType() -> RowAnimation {
         return RowAnimation(insertAnimation: .fade, reloadAnimation: .none, deleteAnimation: .automatic)
     }
     
-    public func tableNode(_ tableNode: ASTableNode, willDisplayRowWith node: ASCellNode) {
+    open func tableNode(_ tableNode: ASTableNode, willDisplayRowWith node: ASCellNode) {
         
     }
     
-    public func tableNode(_ tableNode: ASTableNode, didEndDisplayingRowWith node: ASCellNode) {
+    open func tableNode(_ tableNode: ASTableNode, didEndDisplayingRowWith node: ASCellNode) {
         
     }
 }

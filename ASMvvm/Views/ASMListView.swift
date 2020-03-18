@@ -43,13 +43,25 @@ open class ASMListView<VM: IASMListViewModel>: ASMView<VM>, ASTableDelegate {
         guard let tableNode = tableNode, dataSource == nil else { return }
         tableNode.rx.itemSelected.asObservable().subscribe(onNext: onItemSelected) => disposeBag
         
-        let configureCell: ASTableSectionedDataSource<ASMSectionList<CVM>>.ConfigureCell = { (_, tableNode, index, i) in
-            return self.configureCell(index: index, cellVM: i)
+        let configureCellBlock: ASTableSectionedDataSource<ASMSectionList<CVM>>.ConfigureCellBlock = { [weak self] (_, tableNode, index, i) in
+            guard let self = self else {
+                let cellBlock = { ASCellNode() }
+                return cellBlock
+            }
+            return self.configureCellBlock(index: index, cellVM: i)
         }
         
+        let animatedType = getAnimationType()
         dataSource = RxASTableAnimatedDataSource<ASMSectionList<CVM>>(
-            configureCell: configureCell
+            animationConfiguration: animatedType,
+            configureCellBlock: configureCellBlock
         )
+        
+        let ani1: RxASTableAnimatedDataSource<ASMSectionList<CVM>>.AnimationType = { _, _, _ in AnimationTransition.animated }
+        let ani2: RxASTableAnimatedDataSource<ASMSectionList<CVM>>.AnimationType =  { _, _, _ in AnimationTransition.reload }
+        viewModel?.itemsSource.rxAnimated.distinctUntilChanged().subscribe(onNext: { [weak self] animated in
+            self?.dataSource?.animationType = animated ? ani1 : ani2
+        }) => disposeBag
         
         viewModel?.itemsSource.rxInnerSources
             .bind(to: tableNode.rx.items(dataSource: dataSource!)) => disposeBag
@@ -69,11 +81,15 @@ open class ASMListView<VM: IASMListViewModel>: ASMView<VM>, ASTableDelegate {
     
     open func selectedItemDidChange(_ cellViewModel: CVM) { }
     
-    open func configureCell(index: IndexPath, cellVM: CVM) -> ASCellNode {
+    open func getAnimationType() -> RowAnimation {
+        return RowAnimation(insertAnimation: .fade, reloadAnimation: .none, deleteAnimation: .automatic)
+    }
+    
+    open func configureCellBlock(index: IndexPath, cellVM: CVM) -> ASCellNodeBlock {
         fatalError("Subclasses have to implement this method.")
     }
     
-    public func shouldBatchFetch(for tableNode: ASTableNode) -> Bool {
+    open func shouldBatchFetch(for tableNode: ASTableNode) -> Bool {
         if let viewModel = viewModel,
         viewModel.itemsSource.countElements() > 0,
         viewModel.canLoadMore,
@@ -84,17 +100,17 @@ open class ASMListView<VM: IASMListViewModel>: ASMView<VM>, ASTableDelegate {
         return false
     }
     
-    public func tableNode(_ tableNode: ASTableNode, willBeginBatchFetchWith context: ASBatchContext) {
+    open func tableNode(_ tableNode: ASTableNode, willBeginBatchFetchWith context: ASBatchContext) {
         context.beginBatchFetching()
         viewModel?.fetchingContext = context
         viewModel?.loadMoreItem()
     }
     
-    public func tableNode(_ tableNode: ASTableNode, willDisplayRowWith node: ASCellNode) {
+    open func tableNode(_ tableNode: ASTableNode, willDisplayRowWith node: ASCellNode) {
         
     }
     
-    public func tableNode(_ tableNode: ASTableNode, didEndDisplayingRowWith node: ASCellNode) {
+    open func tableNode(_ tableNode: ASTableNode, didEndDisplayingRowWith node: ASCellNode) {
         
     }
 }
