@@ -45,6 +45,7 @@ open class ASMLoadingNode: ASDisplayNode {
         self.init(viewBlock: { () -> UIView in
             return UIActivityIndicatorView(style: style)
         }, didLoad: nil)
+        self.style.preferredSize = CGSize(width: 40, height: 40)
     }
     
     public func startAnimating() {

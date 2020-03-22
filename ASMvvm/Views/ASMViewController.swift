@@ -103,7 +103,7 @@ open class ASMViewController<VM: IASMViewModel>: ASViewController<ASDisplayNode>
         if view == nil {
             return layout
         }
-        let centerBox = ASRelativeLayoutSpec(horizontalPosition: .center, verticalPosition: .start, sizingOption: .minimumSize, child: loadingNode)
+        let centerBox = ASCenterLayoutSpec(centeringOptions: .XY, sizingOptions: .minimumXY, child: loadingNode)
         let background = ASBackgroundLayoutSpec(child: centerBox, background: layout)
         return background
     }
