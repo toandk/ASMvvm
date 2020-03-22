@@ -11,7 +11,7 @@ import AsyncDisplayKit
 import RxASDataSources
 import DTMvvm
 
-open class ASMCollectionController<VM: IASMListViewModel>: ASMViewController<VM> {
+open class ASMCollectionController<VM: IASMListViewModel>: ASMViewController<VM>, ASCollectionDelegate {
     
     public typealias CVM = VM.CellViewModelElement
     
@@ -19,9 +19,14 @@ open class ASMCollectionController<VM: IASMListViewModel>: ASMViewController<VM>
     
     public var dataSource: RxASCollectionAnimatedDataSource<ASMSectionList<CVM>>?
     
+    private var lastTimeFetching: TimeInterval = 0
+    private var FETCH_THREDHOLD: TimeInterval = 1 // Only allow fetching after 1 second
+    
     public init(viewModel: VM? = nil) {
         super.init(viewModel: viewModel, node: ASDisplayNode())
         collectionNode = ASCollectionNode(collectionViewLayout: getCollectionFlowLayout())
+        collectionNode.delegate = self
+        collectionNode.leadingScreensForBatching = 1
         self.node.addSubnode(collectionNode)        
     }
     
@@ -93,5 +98,27 @@ open class ASMCollectionController<VM: IASMListViewModel>: ASMViewController<VM>
     
     open func getCollectionFlowLayout() -> UICollectionViewFlowLayout {
         return UICollectionViewFlowLayout()
+    }
+    
+    // MARK: Collection Delegate
+    public func shouldBatchFetch(for collectionNode: ASCollectionNode) -> Bool {
+        let timeDiff = CACurrentMediaTime() - lastTimeFetching
+        if let viewModel = viewModel,
+            timeDiff > FETCH_THREDHOLD,
+            viewModel.itemsSource.countElements() > 0,
+            viewModel.canLoadMore,
+            !viewModel.rxIsLoading.value,
+            !viewModel.rxIsLoadingMore.value {
+                return true
+            }
+        return false
+    }
+    
+    public func collectionNode(_ collectionNode: ASCollectionNode,
+                               willBeginBatchFetchWith context: ASBatchContext) {
+        lastTimeFetching = CACurrentMediaTime()
+        context.beginBatchFetching()
+        viewModel?.fetchingContext = context
+        viewModel?.loadMoreItem()
     }
 }
