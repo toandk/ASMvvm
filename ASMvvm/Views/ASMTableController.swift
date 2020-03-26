@@ -34,6 +34,21 @@ open class ASMTableController<VM: IASMListViewModel>: ASMViewController<VM>, AST
         super.init(coder: aDecoder)
     }
     
+    open func beginRefreshing() {
+        guard let refreshControl = tableNode.view.getRefreshControl() else { return }
+        refreshControl.beginRefreshing()
+        
+        tableNode.contentInset = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
+    }
+    
+    open func stopRefreshing() {
+        let refreshControl = self.tableNode.view.getRefreshControl()
+        if refreshControl?.isRefreshing == true {
+            refreshControl?.endRefreshing()
+            self.tableNode.contentInset = .zero
+        }
+    }
+    
     open override func layoutNode(node: ASDisplayNode, constrainedSize: ASSizeRange) -> ASLayoutSpec {
         let layout = ASInsetLayoutSpec(insets: UIEdgeInsets.zero, child: tableNode)
         let canShowLoading = viewModel?.canShowLoading ?? false
@@ -75,7 +90,7 @@ open class ASMTableController<VM: IASMListViewModel>: ASMViewController<VM>, AST
         if canShowLoading {
             viewModel?.rxIsLoading.asDriver(onErrorJustReturn: false).drive(onNext: { [weak self] (isLoading) in
                 guard let self = self else { return }
-                if isLoading && self.loadingNode.isHidden {
+                if isLoading && self.loadingNode.isHidden && self.viewModel?.itemsSource.count == 0 {
                     self.loadingNode.isHidden = false
                     self.loadingNode.startAnimating()
                 }
@@ -83,9 +98,8 @@ open class ASMTableController<VM: IASMListViewModel>: ASMViewController<VM>, AST
                     self.loadingNode.stopAnimating()
                     self.loadingNode.isHidden = true
                 }
-                let refreshControl = self.tableNode.view.getRefreshControl()
-                if !isLoading && refreshControl?.isRefreshing == true {
-                    refreshControl?.endRefreshing()
+                if !isLoading {
+                    self.stopRefreshing()
                 }
             }) => disposeBag
         }
