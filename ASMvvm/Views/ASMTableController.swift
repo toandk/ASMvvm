@@ -73,15 +73,19 @@ open class ASMTableController<VM: IASMListViewModel>: ASMViewController<VM>, AST
     open func bindLoadingNode() {
         let canShowLoading = viewModel?.canShowLoading ?? false
         if canShowLoading {
-            viewModel?.rxIsLoading.distinctUntilChanged().asDriver(onErrorJustReturn: false).drive(onNext: { [weak self] (isLoading) in
-                if isLoading {
-                    self?.loadingNode.isHidden = false
-                    self?.loadingNode.startAnimating()
+            viewModel?.rxIsLoading.asDriver(onErrorJustReturn: false).drive(onNext: { [weak self] (isLoading) in
+                guard let self = self else { return }
+                if isLoading && self.loadingNode.isHidden {
+                    self.loadingNode.isHidden = false
+                    self.loadingNode.startAnimating()
                 }
-                else {
-                    self?.loadingNode.stopAnimating()
-                    self?.loadingNode.isHidden = true
-                    self?.tableNode.view.getRefreshControl()?.endRefreshing()
+                if !isLoading && !self.loadingNode.isHidden {
+                    self.loadingNode.stopAnimating()
+                    self.loadingNode.isHidden = true
+                }
+                let refreshControl = self.tableNode.view.getRefreshControl()
+                if !isLoading && refreshControl?.isRefreshing == true {
+                    refreshControl?.endRefreshing()
                 }
             }) => disposeBag
         }
