@@ -38,7 +38,7 @@ open class ASMTableController<VM: IASMListViewModel>: ASMViewController<VM>, AST
         guard let refreshControl = tableNode.view.getRefreshControl() else { return }
         refreshControl.beginRefreshing()
         
-        tableNode.contentInset = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
+//        tableNode.contentInset = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
     }
     
     open func stopRefreshing() {
