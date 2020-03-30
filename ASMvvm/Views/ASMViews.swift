@@ -140,6 +140,7 @@ open class ASMCellNode<VM: IASMGenericViewModel>: ASCellNode, IView {
         super.init()
         self.viewModel = viewModel
         automaticallyManagesSubnodes = true
+        selectionStyle = .none
         setup()
     }
     
