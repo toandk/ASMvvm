@@ -11,7 +11,6 @@ import AsyncDisplayKit
 import RxCocoa_Texture
 import RxCocoa
 import ASMvvm
-import DTMvvm
 
 class ViewController: ASMTableController<SimpleListViewModel> {
     let addBtn: ASButtonNode = {
@@ -77,7 +76,7 @@ class ViewController: ASMTableController<SimpleListViewModel> {
     }
 }
 
-class SimpleListViewModel: ASMListViewModel<Model, SimpleListCellViewModel> {
+class SimpleListViewModel: ASMListViewModel<ASMModel, SimpleListCellViewModel> {
     
     override func react() {
         rxIsLoading.accept(true)

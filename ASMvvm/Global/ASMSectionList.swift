@@ -2,14 +2,13 @@
 //  SectionList.swift
 //  DTMvvm
 //
-//  Created by Dao Duy Duong on 9/26/18.
+//  Created by toandk on 2/18/20.
 //
 
 import UIKit
 import RxSwift
 import RxCocoa
 import Differentiator
-import DTMvvm
 
 /// Section list data sources
 public class ASMSectionList<T>: AnimatableSectionModelType where T: IdentifyEquatable {
@@ -85,7 +84,7 @@ public class ASMSectionList<T>: AnimatableSectionModelType where T: IdentifyEqua
             return nil
         }
         let item = items.remove(at: index)
-        (item as? IDestroyable)?.destroy()
+        (item as? IASMDestroyable)?.destroy()
         return item
     }
     
@@ -132,7 +131,7 @@ public class ASMSectionList<T>: AnimatableSectionModelType where T: IdentifyEqua
     
     func destroyItems() {
         forEach { (_, item) in
-            (item as? IDestroyable)?.destroy()
+            (item as? IASMDestroyable)?.destroy()
         }
     }
 }

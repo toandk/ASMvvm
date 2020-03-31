@@ -9,7 +9,6 @@
 import Foundation
 import AsyncDisplayKit
 import RxASDataSources
-import DTMvvm
 
 open class ASMTableController<VM: IASMListViewModel>: ASMViewController<VM>, ASTableDelegate {
     

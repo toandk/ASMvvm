@@ -9,7 +9,6 @@
 import UIKit
 import RxSwift
 import AsyncDisplayKit
-import DTMvvm
 
 open class ASMEmptyNode: ASDisplayNode {
     let imgNode = ASImageNode()
@@ -58,7 +57,7 @@ open class ASMLoadingNode: ASDisplayNode {
 }
 
 /// Based ASView that support ViewModel
-open class ASMView<VM: IASMGenericViewModel>: ASDisplayNode, IView {
+open class ASMView<VM: IASMGenericViewModel>: ASDisplayNode, IASMView {
     
     public typealias ViewModelElement = VM
     
@@ -113,7 +112,7 @@ open class ASMView<VM: IASMGenericViewModel>: ASDisplayNode, IView {
 }
 
 /// Master cell for ListPage
-open class ASMCellNode<VM: IASMGenericViewModel>: ASCellNode, IView {
+open class ASMCellNode<VM: IASMGenericViewModel>: ASCellNode, IASMView {
     
     open class var identifier: String {
         return String(describing: self)

@@ -9,9 +9,8 @@
 import Foundation
 import RxSwift
 import AsyncDisplayKit
-import DTMvvm
 
-open class ASMViewController<VM: IASMViewModel>: ASViewController<ASDisplayNode>, IView {
+open class ASMViewController<VM: IASMViewModel>: ASViewController<ASDisplayNode>, IASMView {
     public var disposeBag: DisposeBag? = DisposeBag()
     
     public lazy var loadingNode = ASMLoadingNode(style: .gray)

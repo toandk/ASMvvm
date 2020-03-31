@@ -9,7 +9,6 @@
 import Foundation
 import AsyncDisplayKit
 import RxASDataSources
-import DTMvvm
 
 open class ASMCollectionController<VM: IASMListViewModel>: ASMViewController<VM>, ASCollectionDelegate {
     
