@@ -1,5 +1,5 @@
 PODS:
-  - ASMvvm (1.0.0):
+  - ASMvvm (1.0.5):
     - ObjectMapper
     - RxASDataSources
     - RxCocoa-Texture (~> 3.1.0)
@@ -92,7 +92,7 @@ EXTERNAL SOURCES:
     :path: "../ASMvvm"
 
 SPEC CHECKSUMS:
-  ASMvvm: b39d28dfc91bc31941b04feb68f4bb0d5f8146b5
+  ASMvvm: 91a2ccc9178bbb259c8ff8212cf3daf419672f94
   Differentiator: 886080237d9f87f322641dedbc5be257061b0602
   ObjectMapper: 70187b8941977c62ccfb423caf6b50be405cabf0
   PINCache: d195fdba255283f7e9900a55e3cced377f431f9b
