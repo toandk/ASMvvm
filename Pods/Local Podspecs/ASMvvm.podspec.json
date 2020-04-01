@@ -1,6 +1,6 @@
 {
   "name": "ASMvvm",
-  "version": "1.0.5",
+  "version": "1.0.7",
   "summary": "A MVVM library for iOS Swift, Wrapped TextureGroup (AsyncDisplayKit)",
   "description": "A MVVM library for iOS Swift, including interfaces for View, ViewModel and Model, DI and Services",
   "homepage": "https://github.com/toandk/ASMvvm.git",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/toandk/ASMvvm.git",
-    "tag": "1.0.5"
+    "tag": "1.0.7"
   },
   "swift_versions": "5.0",
   "platforms": {
