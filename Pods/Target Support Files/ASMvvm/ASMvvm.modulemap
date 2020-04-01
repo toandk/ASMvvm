@@ -1,0 +1,6 @@
+framework module ASMvvm {
+  umbrella header "ASMvvm-umbrella.h"
+
+  export *
+  module * { export * }
+}

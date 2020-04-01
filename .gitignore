@@ -1,11 +1,8 @@
+# OS X
+.DS_Store
 
-# gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
-
-## Build generated
+# Xcode
 build/
-DerivedData
-
-## Various settings
 *.pbxuser
 !default.pbxuser
 *.mode1v3
@@ -14,68 +11,28 @@ DerivedData
 !default.mode2v3
 *.perspectivev3
 !default.perspectivev3
-#xcuserdata
-
-## Other
+xcuserdata/
 *.xccheckout
+profile
 *.moved-aside
-*.xcuserstate
-*.xcscmblueprint
-
-## Obj-C/Swift specific
+DerivedData
 *.hmap
 *.ipa
-*.swift.plist
 
-# CocoaPods
-#
-# We recommend against adding the Pods directory to your .gitignore. However
-# you should judge for yourself, the pros and cons are mentioned at:
-# https://guides.cocoapods.org/using/using-cocoapods.html#should-i-check-the-pods-directory-into-source-control
-#
-Pods/
-Pods/*
+# Bundler
+.bundle
 
-# Carthage
-#
 # Add this line if you want to avoid checking in source code from Carthage dependencies.
 # Carthage/Checkouts
 
-Carthage/Build/*
 Carthage/
+Carthage/Build
 
-# fastlane
+# We recommend against adding the Pods directory to your .gitignore. However
+# you should judge for yourself, the pros and cons are mentioned at:
+# https://guides.cocoapods.org/using/using-cocoapods.html#should-i-ignore-the-pods-directory-in-source-control
 #
-# It is recommended to not store the screenshots in the git repo. Instead, use fastlane to re-generate the 
-# screenshots whenever they are needed.
-
-*.app.dSYM.zip
-fastlane/report.xml
-fastlane/screenshots
-fastlane/README.md
-fastlane/.env
-fastlane/test_output
-fastlane/xcov_output
-
-# Ignore chilkat_library
-3rdParty/chilkat_lib/*
-3rdParty/chilkat_lib
-
-# Ignore scripts
-Scripts/git-author-rewrite.sh
-
-# Ignore DS_Store
-*/.DS_Store
-.DS_Store
-FacebookSDK
-FacebookSDK/*
-UserTestingSDK
-UserTestingSDK/*
-
-FBSDKCoreKit.framework/*
-FBSDKLoginKit.framework/*
-FBSDKShareKit.framework/*
-
-.bundle/config
-codesigndoc_exports/*
-*.dSYM.zip
+# Note: if you ignore the Pods directory, make sure to uncomment
+# `pod install` in .travis.yml
+#
+# Pods/
