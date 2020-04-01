@@ -40,7 +40,7 @@ open class ASMListView<VM: IASMListViewModel>: ASMView<VM>, ASTableDelegate {
     /// Every time the viewModel changed, this method will be called again, so make sure to call super for ListPage to work
     open override func bindViewAndViewModel() {
         guard let tableNode = tableNode, dataSource == nil else { return }
-        tableNode.rx.itemSelected.asObservable().subscribe(onNext: onItemSelected) => disposeBag
+        tableNode.rx.itemSelected.asObservable().subscribe(onNext: onItemSelected).disposedBy(disposeBag)
         
         let configureCellBlock: ASTableSectionedDataSource<ASMSectionList<CVM>>.ConfigureCellBlock = { [weak self] (_, tableNode, index, i) in
             guard let self = self else {
@@ -60,10 +60,10 @@ open class ASMListView<VM: IASMListViewModel>: ASMView<VM>, ASTableDelegate {
         let ani2: RxASTableAnimatedDataSource<ASMSectionList<CVM>>.AnimationType =  { _, _, _ in AnimationTransition.reload }
         viewModel?.itemsSource.rxAnimated.distinctUntilChanged().subscribe(onNext: { [weak self] animated in
             self?.dataSource?.animationType = animated ? ani1 : ani2
-        }) => disposeBag
+        }).disposedBy(disposeBag)
         
         viewModel?.itemsSource.rxInnerSources
-            .bind(to: tableNode.rx.items(dataSource: dataSource!)) => disposeBag
+            .bind(to: tableNode.rx.items(dataSource: dataSource!)).disposedBy(disposeBag)
     }
     
     private func onItemSelected(_ indexPath: IndexPath) {

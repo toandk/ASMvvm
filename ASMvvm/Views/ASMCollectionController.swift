@@ -46,7 +46,7 @@ open class ASMCollectionController<VM: IASMListViewModel>: ASMViewController<VM>
     
     /// Every time the viewModel changed, this method will be called again, so make sure to call super for ListPage to work
     open override func bindViewAndViewModel() {
-        collectionNode.rx.itemSelected.asObservable().subscribe(onNext: onItemSelected) => disposeBag
+        collectionNode.rx.itemSelected.asObservable().subscribe(onNext: onItemSelected).disposedBy(disposeBag)
         
         let configureCell: RxASCollectionAnimatedDataSource<ASMSectionList<CVM>>.ConfigureCell = { (_, tableNode, index, i) in
             return self.configureCell(index: index, cellVM: i)
@@ -57,7 +57,7 @@ open class ASMCollectionController<VM: IASMListViewModel>: ASMViewController<VM>
         )
         
         viewModel?.itemsSource.rxInnerSources
-            .bind(to: collectionNode.rx.items(dataSource: dataSource!)) => disposeBag
+            .bind(to: collectionNode.rx.items(dataSource: dataSource!)).disposedBy(disposeBag)
         bindLoadingNode()
     }
         
@@ -73,7 +73,7 @@ open class ASMCollectionController<VM: IASMListViewModel>: ASMViewController<VM>
                     self?.loadingNode.stopAnimating()
                     self?.loadingNode.isHidden = true
                 }
-            }) => disposeBag
+            }).disposedBy(disposeBag)
         }
     }
     

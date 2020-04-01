@@ -45,7 +45,7 @@ class ViewController: ASMTableController<SimpleListViewModel> {
         guard viewModel != nil else { return }
         addBtn.rx.tap.subscribe(onNext: { [weak self] _ in
             self?.viewModel?.add()
-        }) => disposeBag
+        }).disposedBy(disposeBag)
     }
     
     override func configureCellBlock(index: IndexPath, cellVM: SimpleListCellViewModel) -> ASCellNodeBlock {

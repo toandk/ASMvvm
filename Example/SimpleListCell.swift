@@ -40,7 +40,7 @@ class SimpleListCell: ASMCellNode<SimpleListCellViewModel> {
         
         viewModel.rxTitle
             .bind(to: titleLabel.rx.text(SimpleListCell.titleAttributes), setNeedsLayout: self)
-            => disposeBag
+            .disposedBy(disposeBag)
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
