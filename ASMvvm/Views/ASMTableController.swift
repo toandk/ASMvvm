@@ -24,9 +24,11 @@ open class ASMTableController<VM: IASMListViewModel>: ASMViewController<VM>, AST
     public init(viewModel: VM? = nil) {
         tableNode = ASTableNode(style: .plain)
         super.init(viewModel: viewModel, node: ASDisplayNode())
-        tableNode.view.separatorStyle = .none
         tableNode.leadingScreensForBatching = 1
         tableNode.delegate = self
+        node.onDidLoad { [weak self] _ in
+            self?.tableNode.view.separatorStyle = .none
+        }
     }
     
     required public init?(coder aDecoder: NSCoder) {

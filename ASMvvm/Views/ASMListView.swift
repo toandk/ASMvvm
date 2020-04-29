@@ -30,9 +30,11 @@ open class ASMListView<VM: IASMListViewModel>: ASMView<VM>, ASTableDelegate {
     
     override func setup() {
         tableNode.backgroundColor = .clear
-        tableNode.view.separatorStyle = .none
         addSubnode(tableNode)
         tableNode.delegate = self
+        tableNode.onDidLoad { [weak self] _ in
+            self?.tableNode.view.separatorStyle = .none
+        }
         
         super.setup()
     }
