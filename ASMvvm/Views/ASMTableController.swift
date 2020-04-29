@@ -26,7 +26,7 @@ open class ASMTableController<VM: IASMListViewModel>: ASMViewController<VM>, AST
         super.init(viewModel: viewModel, node: ASDisplayNode())
         tableNode.leadingScreensForBatching = 1
         tableNode.delegate = self
-        node.onDidLoad { [weak self] _ in
+        tableNode.onDidLoad { [weak self] _ in
             self?.tableNode.view.separatorStyle = .none
         }
     }
