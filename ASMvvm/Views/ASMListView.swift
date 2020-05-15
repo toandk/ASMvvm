@@ -93,7 +93,7 @@ open class ASMListView<VM: IASMListViewModel>: ASMView<VM>, ASTableDelegate {
     open func shouldBatchFetch(for tableNode: ASTableNode) -> Bool {
         if let viewModel = viewModel,
         viewModel.itemsSource.countElements() > 0,
-        viewModel.canLoadMore,
+        viewModel.itemsSource.allElements().count > 0,
         !viewModel.rxIsLoading.value,
         !viewModel.rxIsLoadingMore.value {
             return true

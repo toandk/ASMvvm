@@ -132,7 +132,7 @@ open class ASMTableController<VM: IASMListViewModel>: ASMViewController<VM>, AST
         let timeDiff = CACurrentMediaTime() - lastTimeFetching
         if let viewModel = viewModel,
             timeDiff > FETCH_THREDHOLD,
-            viewModel.itemsSource.countElements() > 0,
+            viewModel.itemsSource.allElements().count > 0,
             viewModel.canLoadMore,
             !viewModel.rxIsLoading.value,
             !viewModel.rxIsLoadingMore.value {
