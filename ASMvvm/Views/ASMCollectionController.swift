@@ -46,7 +46,9 @@ open class ASMCollectionController<VM: IASMListViewModel>: ASMViewController<VM>
     
     /// Every time the viewModel changed, this method will be called again, so make sure to call super for ListPage to work
     open override func bindViewAndViewModel() {
-        collectionNode.rx.itemSelected.asObservable().subscribe(onNext: onItemSelected).disposedBy(disposeBag)
+        collectionNode.rx.itemSelected.asObservable().subscribe(onNext: { [weak self] indexPath in
+            self?.onItemSelected(indexPath)
+        }).disposedBy(disposeBag)
         
         let configureCell: RxASCollectionAnimatedDataSource<ASMSectionList<CVM>>.ConfigureCell = { (_, tableNode, index, i) in
             return self.configureCell(index: index, cellVM: i)

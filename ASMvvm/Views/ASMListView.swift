@@ -42,7 +42,9 @@ open class ASMListView<VM: IASMListViewModel>: ASMView<VM>, ASTableDelegate {
     /// Every time the viewModel changed, this method will be called again, so make sure to call super for ListPage to work
     open override func bindViewAndViewModel() {
         guard let tableNode = tableNode, dataSource == nil else { return }
-        tableNode.rx.itemSelected.asObservable().subscribe(onNext: onItemSelected).disposedBy(disposeBag)
+        tableNode.rx.itemSelected.asObservable().subscribe(onNext: { [weak self] indexPath in
+            self?.onItemSelected(indexPath)
+        }).disposedBy(disposeBag)
         
         let configureCellBlock: ASTableSectionedDataSource<ASMSectionList<CVM>>.ConfigureCellBlock = { [weak self] (_, tableNode, index, i) in
             guard let self = self else {

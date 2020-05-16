@@ -37,7 +37,6 @@ open class ASMViewController<VM: IASMViewModel>: ASViewController<ASDisplayNode>
         _viewModel = viewModel
         super.init(node: node)
         self.node.automaticallyManagesSubnodes = true
-//        self.node.layoutSpecBlock = self.layoutNode
         self.node.layoutSpecBlock = { [weak self] (node, size) -> ASLayoutSpec in
             guard let self = self else { return ASLayoutSpec() }
             return self.layoutNode(node: node, constrainedSize: size)
