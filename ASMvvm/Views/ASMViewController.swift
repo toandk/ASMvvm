@@ -55,21 +55,25 @@ open class ASMViewController<VM: IASMViewModel>: ASViewController<ASDisplayNode>
     }
     
     open override func viewWillAppear(_ animated: Bool) {
+        guard viewModel?.rxViewState.value != .willAppear else { return }
         super.viewWillAppear(animated)
         viewModel?.rxViewState.accept(.willAppear)
     }
     
     open override func viewDidAppear(_ animated: Bool) {
+        guard viewModel?.rxViewState.value != .didAppear else { return }
         super.viewDidAppear(animated)
         viewModel?.rxViewState.accept(.didAppear)
     }
     
     open override func viewWillDisappear(_ animated: Bool) {
+        guard viewModel?.rxViewState.value != .willDisappear else { return }
         super.viewWillDisappear(animated)
         viewModel?.rxViewState.accept(.willDisappear)
     }
     
     open override func viewDidDisappear(_ animated: Bool) {
+        guard viewModel?.rxViewState.value != .didDisappear else { return }
         super.viewDidDisappear(animated)
         viewModel?.rxViewState.accept(.didDisappear)
     }
