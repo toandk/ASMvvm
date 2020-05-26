@@ -11,6 +11,11 @@ import RxCocoa
 import Differentiator
 import AsyncDisplayKit
 
+/// ViewState for binding from ViewModel and View (Life cycle binding)
+public enum ASMViewState {
+    case none, willAppear, didAppear, willDisappear, didDisappear
+}
+
 /// Destroyable type for handling dispose bag and destroy it
 public protocol IASMDestroyable: class {
     
@@ -62,7 +67,7 @@ public protocol IASMGenericViewModel: IASMDestroyable, IdentifyEquatable where I
 /// Base ViewModel type for Page (UIViewController), View (UIVIew)
 public protocol IASMViewModel: IASMGenericViewModel {
 //    var rxShowLocalHud: BehaviorRelay<Bool> { get }
-    
+    var rxViewState: BehaviorRelay<ASMViewState> { get }
 }
 
 public protocol IASMListViewModel: IASMViewModel {

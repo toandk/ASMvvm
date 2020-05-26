@@ -35,6 +35,8 @@ open class ASMViewModel<M>: NSObject, IASMViewModel, IReactable {
         }
     }
     
+    public let rxViewState = BehaviorRelay<ASMViewState>(value: .none)
+    
     public var disposeBag: DisposeBag? = DisposeBag()
     
     var isReacted = false

@@ -54,13 +54,25 @@ open class ASMViewController<VM: IASMViewModel>: ASViewController<ASDisplayNode>
         viewModelChanged()
     }
     
-//    open override func viewDidDisappear(_ animated: Bool) {
-//        super.viewDidDisappear(animated)
-//
-//        if isMovingFromParent {
-//            destroy()
-//        }
-//    }
+    open override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel?.rxViewState.accept(.willAppear)
+    }
+    
+    open override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        viewModel?.rxViewState.accept(.didAppear)
+    }
+    
+    open override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        viewModel?.rxViewState.accept(.willDisappear)
+    }
+    
+    open override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        viewModel?.rxViewState.accept(.didDisappear)
+    }
     
     /**
      Subclasses override this method to initialize UIs.
