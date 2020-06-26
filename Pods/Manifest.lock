@@ -1,5 +1,5 @@
 PODS:
-  - ASMvvm (1.0.7):
+  - ASMvvm (1.1.0):
     - ObjectMapper
     - RxASDataSources
     - RxCocoa-Texture (~> 3.1.0)
@@ -8,57 +8,57 @@ PODS:
     - Texture/Yoga
   - Differentiator (4.0.1)
   - ObjectMapper (3.5.1)
-  - PINCache (3.0.1-beta.6):
-    - PINCache/Arc-exception-safe (= 3.0.1-beta.6)
-    - PINCache/Core (= 3.0.1-beta.6)
-  - PINCache/Arc-exception-safe (3.0.1-beta.6):
+  - PINCache (3.0.1-beta.8):
+    - PINCache/Arc-exception-safe (= 3.0.1-beta.8)
+    - PINCache/Core (= 3.0.1-beta.8)
+  - PINCache/Arc-exception-safe (3.0.1-beta.8):
     - PINCache/Core
-  - PINCache/Core (3.0.1-beta.6):
-    - PINOperation (~> 1.1.0)
+  - PINCache/Core (3.0.1-beta.8):
+    - PINOperation (~> 1.1.1)
   - PINOperation (1.1.2)
-  - PINRemoteImage/Core (3.0.0-beta.13):
+  - PINRemoteImage/Core (3.0.0):
     - PINOperation
-  - PINRemoteImage/iOS (3.0.0-beta.13):
+  - PINRemoteImage/iOS (3.0.0):
     - PINRemoteImage/Core
-  - PINRemoteImage/PINCache (3.0.0-beta.13):
-    - PINCache (= 3.0.1-beta.6)
+  - PINRemoteImage/PINCache (3.0.0):
+    - PINCache (= 3.0.1-beta.8)
     - PINRemoteImage/Core
-  - RxASDataSources (0.4.1):
+  - RxASDataSources (0.5.1):
     - Differentiator (~> 4.0)
-    - RxCocoa (~> 5.0.0)
-    - RxSwift (~> 5.0.0)
-    - Texture (~> 2.8.1)
-  - RxCocoa (5.0.1):
+    - RxCocoa (~> 5.1)
+    - RxSwift (~> 5.1)
+    - Texture
+  - RxCocoa (5.1.1):
     - RxRelay (~> 5)
     - RxSwift (~> 5)
   - RxCocoa-Texture (3.1.0):
     - RxCocoa (~> 5.0)
     - RxSwift (~> 5.0)
-    - Texture (~> 2.7)
-  - RxRelay (5.0.1):
+    - Texture
+  - RxRelay (5.1.1):
     - RxSwift (~> 5)
-  - RxSwift (5.0.1)
-  - Texture (2.8.1):
-    - Texture/AssetsLibrary (= 2.8.1)
-    - Texture/Core (= 2.8.1)
-    - Texture/MapKit (= 2.8.1)
-    - Texture/Photos (= 2.8.1)
-    - Texture/PINRemoteImage (= 2.8.1)
-    - Texture/Video (= 2.8.1)
-  - Texture/AssetsLibrary (2.8.1):
+  - RxSwift (5.1.1)
+  - Texture (3.0.0-rc.2):
+    - Texture/AssetsLibrary (= 3.0.0-rc.2)
+    - Texture/Core (= 3.0.0-rc.2)
+    - Texture/MapKit (= 3.0.0-rc.2)
+    - Texture/Photos (= 3.0.0-rc.2)
+    - Texture/PINRemoteImage (= 3.0.0-rc.2)
+    - Texture/Video (= 3.0.0-rc.2)
+  - Texture/AssetsLibrary (3.0.0-rc.2):
     - Texture/Core
-  - Texture/Core (2.8.1)
-  - Texture/MapKit (2.8.1):
+  - Texture/Core (3.0.0-rc.2)
+  - Texture/MapKit (3.0.0-rc.2):
     - Texture/Core
-  - Texture/Photos (2.8.1):
+  - Texture/Photos (3.0.0-rc.2):
     - Texture/Core
-  - Texture/PINRemoteImage (2.8.1):
-    - PINRemoteImage/iOS (= 3.0.0-beta.13)
+  - Texture/PINRemoteImage (3.0.0-rc.2):
+    - PINRemoteImage/iOS (~> 3.0.0)
     - PINRemoteImage/PINCache
     - Texture/Core
-  - Texture/Video (2.8.1):
+  - Texture/Video (3.0.0-rc.2):
     - Texture/Core
-  - Texture/Yoga (2.8.1):
+  - Texture/Yoga (3.0.0-rc.2):
     - Texture/Core
     - Yoga (= 1.6.0)
   - Yoga (1.6.0)
@@ -66,11 +66,10 @@ PODS:
 DEPENDENCIES:
   - ASMvvm (from `../ASMvvm`)
   - ObjectMapper
-  - RxASDataSources
-  - RxCocoa-Texture (= 3.1.0)
+  - RxASDataSources (from `https://github.com/toandk/RxASDataSources`)
+  - RxCocoa-Texture (from `https://github.com/toandk/RxCocoa-Texture`)
   - RxSwift
-  - Texture
-  - Texture/Yoga
+  - Texture (from `https://github.com/TextureGroup/Texture`, branch `3.0.0-rc.2`)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
@@ -79,33 +78,48 @@ SPEC REPOS:
     - PINCache
     - PINOperation
     - PINRemoteImage
-    - RxASDataSources
     - RxCocoa
-    - RxCocoa-Texture
     - RxRelay
     - RxSwift
-    - Texture
     - Yoga
 
 EXTERNAL SOURCES:
   ASMvvm:
     :path: "../ASMvvm"
+  RxASDataSources:
+    :git: https://github.com/toandk/RxASDataSources
+  RxCocoa-Texture:
+    :git: https://github.com/toandk/RxCocoa-Texture
+  Texture:
+    :branch: 3.0.0-rc.2
+    :git: https://github.com/TextureGroup/Texture
+
+CHECKOUT OPTIONS:
+  RxASDataSources:
+    :commit: b5bb7a85f51a793a86896f605b587192cfcecefc
+    :git: https://github.com/toandk/RxASDataSources
+  RxCocoa-Texture:
+    :commit: 69bcc414b9d2226f909b296cf482a20375f9f6cf
+    :git: https://github.com/toandk/RxCocoa-Texture
+  Texture:
+    :commit: 2efe3fd35aeeec610804c42622529fa0b973f8d1
+    :git: https://github.com/TextureGroup/Texture
 
 SPEC CHECKSUMS:
-  ASMvvm: be1e2cdfcbfb939c92e55dea5a496f9a9afdbc20
+  ASMvvm: 47c9086bbd29ce0674e461c906cb8a23d88bebee
   Differentiator: 886080237d9f87f322641dedbc5be257061b0602
   ObjectMapper: 70187b8941977c62ccfb423caf6b50be405cabf0
-  PINCache: d195fdba255283f7e9900a55e3cced377f431f9b
+  PINCache: 534fd41d358d828dfdf227a0d327f3673a65e20b
   PINOperation: 24b774353ca248fcf87d67b2d61eef42087c125a
-  PINRemoteImage: d6d51c5d2adda55f1ce30c96e850b6c4ebd2856a
-  RxASDataSources: b1767fdc2b455d67a7e8524588b1d4289300f976
-  RxCocoa: e741b9749968e8a143e2b787f1dfbff2b63d0a5c
-  RxCocoa-Texture: 90abb54f5d153746fe414f4d04e6d2e6cf91d70e
-  RxRelay: 89d54507f4fd4d969e6ec1d4bd7f3673640b4640
-  RxSwift: e2dc62b366a3adf6a0be44ba9f405efd4c94e0c4
-  Texture: 8ecf6984065a1e54f06bf97b349ecca28582acd7
+  PINRemoteImage: e2b89e19fb6e77ffc099f9d9f3b3fe1745e3f9f9
+  RxASDataSources: 81764dee676512cb9623352ac7f19ced3e33a7c6
+  RxCocoa: 32065309a38d29b5b0db858819b5bf9ef038b601
+  RxCocoa-Texture: b3eacb1ef3d9f8cc53f69d67fdd4c1ebbf5766e1
+  RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
+  RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
+  Texture: 6524221528cf6ca862d3247c7b6cd2507e77fb56
   Yoga: 81670877477311136b1b3f69a6307ce62e1c89cf
 
-PODFILE CHECKSUM: 44fa5a33cef05a1823aa751a028e495edbd036c0
+PODFILE CHECKSUM: ff95a2a9d1681fee2730910fa663a3ca1402bd4f
 
 COCOAPODS: 1.9.1

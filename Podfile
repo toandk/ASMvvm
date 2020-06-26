@@ -4,10 +4,10 @@ use_frameworks!
 
 target 'ASMvvm-Example' do
   pod 'ASMvvm', :path => '../ASMvvm'
-  pod 'RxCocoa-Texture', '3.1.0'
+  pod 'RxCocoa-Texture', :git => 'https://github.com/toandk/RxCocoa-Texture'
   pod 'RxSwift'
-  pod 'RxASDataSources'
+  pod 'RxASDataSources', :git => 'https://github.com/toandk/RxASDataSources'
   pod 'ObjectMapper'
-  pod 'Texture'
-  pod 'Texture/Yoga'
+  pod 'Texture', :git => 'https://github.com/TextureGroup/Texture', :branch => '3.0.0-rc.2'
+#  pod 'Texture/Yoga'
 end
