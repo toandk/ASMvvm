@@ -161,4 +161,8 @@ open class ASMTableController<VM: IASMListViewModel>: ASMViewController<VM>, AST
     open func tableNode(_ tableNode: ASTableNode, didEndDisplayingRowWith node: ASCellNode) {
         
     }
+    
+    open func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+    }
 }
