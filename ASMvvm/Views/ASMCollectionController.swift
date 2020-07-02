@@ -44,12 +44,36 @@ open class ASMCollectionController<VM: IASMListViewModel>: ASMViewController<VM>
         return canShowLoading ? layoutCenterView(layout, view: loadingNode) : layout
     }
     
+    open func beginRefreshing() {
+        guard let refreshControl = collectionNode.view.getRefreshControl() else { return }
+        refreshControl.beginRefreshing()
+            
+    //        tableNode.contentInset = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
+        }
+        
+    open func stopRefreshing() {
+        let refreshControl = self.collectionNode.view.getRefreshControl()
+        if refreshControl?.isRefreshing == true {
+            refreshControl?.endRefreshing()
+//            self.collectionNode.contentInset = .zero
+        }
+    }
+    
     /// Every time the viewModel changed, this method will be called again, so make sure to call super for ListPage to work
     open override func bindViewAndViewModel() {
         collectionNode.rx.itemSelected.asObservable().subscribe(onNext: { [weak self] indexPath in
             self?.onItemSelected(indexPath)
         }).disposedBy(disposeBag)
         
+        buildDataSource()
+        setupAnimation()
+        
+        viewModel?.itemsSource.rxInnerSources
+            .bind(to: collectionNode.rx.items(dataSource: dataSource!)).disposedBy(disposeBag)
+        bindLoadingNode()
+    }
+    
+    private func buildDataSource() {
         let configureCell: RxASCollectionAnimatedDataSource<ASMSectionList<CVM>>.ConfigureCell = { [weak self] (_, _, index, i) in
             guard let self = self else {
                 return ASCellNode()
@@ -57,19 +81,26 @@ open class ASMCollectionController<VM: IASMListViewModel>: ASMViewController<VM>
             return self.configureCell(index: index, cellVM: i)
         }
                 
+        let animationType = getAnimationType()
+        let configureSupplementaryView: RxASCollectionAnimatedDataSource<ASMSectionList<CVM>>.ConfigureSupplementaryView = { [weak self] (_, _, title, index) in
+            guard let self = self else {
+                return ASCellNode()
+            }
+            return self.configureSupplementaryView(title, indexPath: index)
+        }
         dataSource = RxASCollectionAnimatedDataSource<ASMSectionList<CVM>>(
-            configureCell: configureCell
+            animationConfiguration: animationType,
+            configureCell: configureCell,
+            configureSupplementaryView: configureSupplementaryView
         )
-        
+    }
+    
+    private func setupAnimation() {
         let ani1: RxASCollectionAnimatedDataSource<ASMSectionList<CVM>>.AnimationType = { _, _, _ in AnimationTransition.animated }
         let ani2: RxASCollectionAnimatedDataSource<ASMSectionList<CVM>>.AnimationType =  { _, _, _ in AnimationTransition.reload }
         viewModel?.itemsSource.rxAnimated.distinctUntilChanged().subscribe(onNext: { [weak self] animated in
             self?.dataSource?.animationType = animated ? ani1 : ani2
         }).disposedBy(disposeBag)
-        
-        viewModel?.itemsSource.rxInnerSources
-            .bind(to: collectionNode.rx.items(dataSource: dataSource!)).disposedBy(disposeBag)
-        bindLoadingNode()
     }
         
     open func bindLoadingNode() {
@@ -98,6 +129,10 @@ open class ASMCollectionController<VM: IASMListViewModel>: ASMViewController<VM>
         viewModel.selectedItemDidChange(cellViewModel)
         
         selectedItemDidChange(cellViewModel)
+    }
+    
+    open func getAnimationType() -> RowAnimation {
+        return RowAnimation(insertAnimation: .fade, reloadAnimation: .none, deleteAnimation: .automatic)
     }
     
     open func selectedItemDidChange(_ cellViewModel: CVM) { }
@@ -134,5 +169,9 @@ open class ASMCollectionController<VM: IASMListViewModel>: ASMViewController<VM>
     
     open func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
+    }
+    
+    open func configureSupplementaryView(_ title: String, indexPath: IndexPath) -> ASCellNode {
+        return ASCellNode()
     }
 }
