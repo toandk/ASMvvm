@@ -50,13 +50,22 @@ open class ASMCollectionController<VM: IASMListViewModel>: ASMViewController<VM>
             self?.onItemSelected(indexPath)
         }).disposedBy(disposeBag)
         
-        let configureCell: RxASCollectionAnimatedDataSource<ASMSectionList<CVM>>.ConfigureCell = { (_, tableNode, index, i) in
+        let configureCell: RxASCollectionAnimatedDataSource<ASMSectionList<CVM>>.ConfigureCell = { [weak self] (_, _, index, i) in
+            guard let self = self else {
+                return ASCellNode()
+            }
             return self.configureCell(index: index, cellVM: i)
         }
-        
+                
         dataSource = RxASCollectionAnimatedDataSource<ASMSectionList<CVM>>(
             configureCell: configureCell
         )
+        
+        let ani1: RxASCollectionAnimatedDataSource<ASMSectionList<CVM>>.AnimationType = { _, _, _ in AnimationTransition.animated }
+        let ani2: RxASCollectionAnimatedDataSource<ASMSectionList<CVM>>.AnimationType =  { _, _, _ in AnimationTransition.reload }
+        viewModel?.itemsSource.rxAnimated.distinctUntilChanged().subscribe(onNext: { [weak self] animated in
+            self?.dataSource?.animationType = animated ? ani1 : ani2
+        }).disposedBy(disposeBag)
         
         viewModel?.itemsSource.rxInnerSources
             .bind(to: collectionNode.rx.items(dataSource: dataSource!)).disposedBy(disposeBag)
@@ -102,7 +111,7 @@ open class ASMCollectionController<VM: IASMListViewModel>: ASMViewController<VM>
     }
     
     // MARK: Collection Delegate
-    public func shouldBatchFetch(for collectionNode: ASCollectionNode) -> Bool {
+    open func shouldBatchFetch(for collectionNode: ASCollectionNode) -> Bool {
         let timeDiff = CACurrentMediaTime() - lastTimeFetching
         if let viewModel = viewModel,
             timeDiff > FETCH_THREDHOLD,
@@ -115,11 +124,15 @@ open class ASMCollectionController<VM: IASMListViewModel>: ASMViewController<VM>
         return false
     }
     
-    public func collectionNode(_ collectionNode: ASCollectionNode,
+    open func collectionNode(_ collectionNode: ASCollectionNode,
                                willBeginBatchFetchWith context: ASBatchContext) {
         lastTimeFetching = CACurrentMediaTime()
         context.beginBatchFetching()
         viewModel?.fetchingContext = context
         viewModel?.loadMoreItem()
+    }
+    
+    open func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
     }
 }
