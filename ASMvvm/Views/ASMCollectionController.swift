@@ -106,14 +106,18 @@ open class ASMCollectionController<VM: IASMListViewModel>: ASMViewController<VM>
     open func bindLoadingNode() {
         let canShowLoading = viewModel?.canShowLoading ?? false
         if canShowLoading {
-            viewModel?.rxIsLoading.distinctUntilChanged().asDriver(onErrorJustReturn: false).drive(onNext: { [weak self] isLoading in
-                if isLoading {
-                    self?.loadingNode.isHidden = false
-                    self?.loadingNode.startAnimating()
+            viewModel?.rxIsLoading.asDriver(onErrorJustReturn: false).drive(onNext: { [weak self] (isLoading) in
+                guard let self = self else { return }
+                if isLoading && self.loadingNode.isHidden && self.viewModel?.itemsSource.count == 0 {
+                    self.loadingNode.isHidden = false
+                    self.loadingNode.startAnimating()
                 }
-                else {
-                    self?.loadingNode.stopAnimating()
-                    self?.loadingNode.isHidden = true
+                if !isLoading && !self.loadingNode.isHidden {
+                    self.loadingNode.stopAnimating()
+                    self.loadingNode.isHidden = true
+                }
+                if !isLoading {
+                    self.stopRefreshing()
                 }
             }).disposedBy(disposeBag)
         }
