@@ -10,7 +10,7 @@ import Foundation
 import AsyncDisplayKit
 import RxASDataSources
 
-open class ASMCollectionController<VM: IASMListViewModel>: ASMViewController<VM>, ASCollectionDelegate {
+open class ASMCollectionController<VM: IASMListViewModel>: ASMViewController<VM>, ASCollectionDelegate, ASCollectionDelegateFlowLayout {
     
     public typealias CVM = VM.CellViewModelElement
     
@@ -177,5 +177,13 @@ open class ASMCollectionController<VM: IASMListViewModel>: ASMViewController<VM>
     
     open func configureSupplementaryView(_ title: String, indexPath: IndexPath) -> ASCellNode {
         return ASCellNode()
+    }
+    
+    open func collectionNode(_ collectionNode: ASCollectionNode, sizeRangeForFooterInSection section: Int) -> ASSizeRange {
+        return ASSizeRange(min: .zero, max: .zero)
+    }
+    
+    open func collectionNode(_ collectionNode: ASCollectionNode, sizeRangeForHeaderInSection section: Int) -> ASSizeRange {
+        return ASSizeRange(min: .zero, max: .zero)
     }
 }
