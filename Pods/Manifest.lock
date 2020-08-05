@@ -38,27 +38,27 @@ PODS:
   - RxRelay (5.1.1):
     - RxSwift (~> 5)
   - RxSwift (5.1.1)
-  - Texture (3.0.0-rc.2):
-    - Texture/AssetsLibrary (= 3.0.0-rc.2)
-    - Texture/Core (= 3.0.0-rc.2)
-    - Texture/MapKit (= 3.0.0-rc.2)
-    - Texture/Photos (= 3.0.0-rc.2)
-    - Texture/PINRemoteImage (= 3.0.0-rc.2)
-    - Texture/Video (= 3.0.0-rc.2)
-  - Texture/AssetsLibrary (3.0.0-rc.2):
+  - Texture (3.0.0):
+    - Texture/AssetsLibrary (= 3.0.0)
+    - Texture/Core (= 3.0.0)
+    - Texture/MapKit (= 3.0.0)
+    - Texture/Photos (= 3.0.0)
+    - Texture/PINRemoteImage (= 3.0.0)
+    - Texture/Video (= 3.0.0)
+  - Texture/AssetsLibrary (3.0.0):
     - Texture/Core
-  - Texture/Core (3.0.0-rc.2)
-  - Texture/MapKit (3.0.0-rc.2):
+  - Texture/Core (3.0.0)
+  - Texture/MapKit (3.0.0):
     - Texture/Core
-  - Texture/Photos (3.0.0-rc.2):
+  - Texture/Photos (3.0.0):
     - Texture/Core
-  - Texture/PINRemoteImage (3.0.0-rc.2):
+  - Texture/PINRemoteImage (3.0.0):
     - PINRemoteImage/iOS (~> 3.0.0)
     - PINRemoteImage/PINCache
     - Texture/Core
-  - Texture/Video (3.0.0-rc.2):
+  - Texture/Video (3.0.0):
     - Texture/Core
-  - Texture/Yoga (3.0.0-rc.2):
+  - Texture/Yoga (3.0.0):
     - Texture/Core
     - Yoga (= 1.6.0)
   - Yoga (1.6.0)
@@ -69,7 +69,7 @@ DEPENDENCIES:
   - RxASDataSources (from `https://github.com/toandk/RxASDataSources`)
   - RxCocoa-Texture (from `https://github.com/toandk/RxCocoa-Texture`)
   - RxSwift
-  - Texture (from `https://github.com/TextureGroup/Texture`, branch `3.0.0-rc.2`)
+  - Texture (from `https://github.com/TextureGroup/Texture`, branch `3.0.0`)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
@@ -91,7 +91,7 @@ EXTERNAL SOURCES:
   RxCocoa-Texture:
     :git: https://github.com/toandk/RxCocoa-Texture
   Texture:
-    :branch: 3.0.0-rc.2
+    :branch: 3.0.0
     :git: https://github.com/TextureGroup/Texture
 
 CHECKOUT OPTIONS:
@@ -102,7 +102,7 @@ CHECKOUT OPTIONS:
     :commit: 69bcc414b9d2226f909b296cf482a20375f9f6cf
     :git: https://github.com/toandk/RxCocoa-Texture
   Texture:
-    :commit: 2efe3fd35aeeec610804c42622529fa0b973f8d1
+    :commit: 81ecdc903236d9c88e2ad16ae9672759bbe71431
     :git: https://github.com/TextureGroup/Texture
 
 SPEC CHECKSUMS:
@@ -117,9 +117,9 @@ SPEC CHECKSUMS:
   RxCocoa-Texture: b3eacb1ef3d9f8cc53f69d67fdd4c1ebbf5766e1
   RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
   RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
-  Texture: 6524221528cf6ca862d3247c7b6cd2507e77fb56
+  Texture: 2f109e937850d94d1d07232041c9c7313ccddb81
   Yoga: 81670877477311136b1b3f69a6307ce62e1c89cf
 
-PODFILE CHECKSUM: ff95a2a9d1681fee2730910fa663a3ca1402bd4f
+PODFILE CHECKSUM: 08f1532d7b28bb29489e4b16e1991c59c7031df3
 
-COCOAPODS: 1.9.1
+COCOAPODS: 1.9.3
