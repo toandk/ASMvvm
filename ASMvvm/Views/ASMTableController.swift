@@ -63,6 +63,15 @@ open class ASMTableController<VM: IASMListViewModel>: ASMViewController<VM>, AST
             self?.onItemSelected(indexPath)
         }).disposedBy(disposeBag)
         
+        buildDataSource()
+        setupAnimation()
+        
+        viewModel?.itemsSource.rxInnerSources
+            .bind(to: tableNode.rx.items(dataSource: dataSource!)).disposedBy(disposeBag)
+        bindLoadingNode()
+    }
+    
+    private func buildDataSource() {
         let configureCellBlock: ASTableSectionedDataSource<ASMSectionList<CVM>>.ConfigureCellBlock = { [weak self] (_, tableNode, index, i) in
             guard let self = self else {
                 let cellBlock = { ASCellNode() }
@@ -76,16 +85,14 @@ open class ASMTableController<VM: IASMListViewModel>: ASMViewController<VM>, AST
             animationConfiguration: animatedType,
             configureCellBlock: configureCellBlock
         )
-        
+    }
+    
+    private func setupAnimation() {
         let ani1: RxASTableAnimatedDataSource<ASMSectionList<CVM>>.AnimationType = { _, _, _ in AnimationTransition.animated }
         let ani2: RxASTableAnimatedDataSource<ASMSectionList<CVM>>.AnimationType =  { _, _, _ in AnimationTransition.reload }
         viewModel?.itemsSource.rxAnimated.distinctUntilChanged().subscribe(onNext: { [weak self] animated in
             self?.dataSource?.animationType = animated ? ani1 : ani2
         }).disposedBy(disposeBag)
-        
-        viewModel?.itemsSource.rxInnerSources
-            .bind(to: tableNode.rx.items(dataSource: dataSource!)).disposedBy(disposeBag)
-        bindLoadingNode()
     }
     
     open func bindLoadingNode() {

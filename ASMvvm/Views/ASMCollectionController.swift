@@ -10,7 +10,7 @@ import Foundation
 import AsyncDisplayKit
 import RxASDataSources
 
-open class ASMCollectionController<VM: IASMListViewModel>: ASMViewController<VM>, ASCollectionDelegate {
+open class ASMCollectionController<VM: IASMListViewModel>: ASMViewController<VM>, ASCollectionDelegate, ASCollectionDelegateFlowLayout {
     
     public typealias CVM = VM.CellViewModelElement
     
@@ -44,36 +44,80 @@ open class ASMCollectionController<VM: IASMListViewModel>: ASMViewController<VM>
         return canShowLoading ? layoutCenterView(layout, view: loadingNode) : layout
     }
     
+    open func beginRefreshing() {
+        guard let refreshControl = collectionNode.view.getRefreshControl() else { return }
+        refreshControl.beginRefreshing()
+            
+    //        tableNode.contentInset = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
+        }
+        
+    open func stopRefreshing() {
+        let refreshControl = self.collectionNode.view.getRefreshControl()
+        if refreshControl?.isRefreshing == true {
+            refreshControl?.endRefreshing()
+//            self.collectionNode.contentInset = .zero
+        }
+    }
+    
     /// Every time the viewModel changed, this method will be called again, so make sure to call super for ListPage to work
     open override func bindViewAndViewModel() {
         collectionNode.rx.itemSelected.asObservable().subscribe(onNext: { [weak self] indexPath in
             self?.onItemSelected(indexPath)
         }).disposedBy(disposeBag)
         
-        let configureCell: RxASCollectionAnimatedDataSource<ASMSectionList<CVM>>.ConfigureCell = { (_, tableNode, index, i) in
-            return self.configureCell(index: index, cellVM: i)
-        }
-        
-        dataSource = RxASCollectionAnimatedDataSource<ASMSectionList<CVM>>(
-            configureCell: configureCell
-        )
+        buildDataSource()
+        setupAnimation()
         
         viewModel?.itemsSource.rxInnerSources
             .bind(to: collectionNode.rx.items(dataSource: dataSource!)).disposedBy(disposeBag)
         bindLoadingNode()
     }
+    
+    private func buildDataSource() {
+        let configureCell: RxASCollectionAnimatedDataSource<ASMSectionList<CVM>>.ConfigureCell = { [weak self] (_, _, index, i) in
+            guard let self = self else {
+                return ASCellNode()
+            }
+            return self.configureCell(index: index, cellVM: i)
+        }
+                
+        let animationType = getAnimationType()
+        let configureSupplementaryView: RxASCollectionAnimatedDataSource<ASMSectionList<CVM>>.ConfigureSupplementaryView = { [weak self] (_, _, title, index) in
+            guard let self = self else {
+                return ASCellNode()
+            }
+            return self.configureSupplementaryView(title, indexPath: index)
+        }
+        dataSource = RxASCollectionAnimatedDataSource<ASMSectionList<CVM>>(
+            animationConfiguration: animationType,
+            configureCell: configureCell,
+            configureSupplementaryView: configureSupplementaryView
+        )
+    }
+    
+    private func setupAnimation() {
+        let ani1: RxASCollectionAnimatedDataSource<ASMSectionList<CVM>>.AnimationType = { _, _, _ in AnimationTransition.animated }
+        let ani2: RxASCollectionAnimatedDataSource<ASMSectionList<CVM>>.AnimationType =  { _, _, _ in AnimationTransition.reload }
+        viewModel?.itemsSource.rxAnimated.distinctUntilChanged().subscribe(onNext: { [weak self] animated in
+            self?.dataSource?.animationType = animated ? ani1 : ani2
+        }).disposedBy(disposeBag)
+    }
         
     open func bindLoadingNode() {
         let canShowLoading = viewModel?.canShowLoading ?? false
         if canShowLoading {
-            viewModel?.rxIsLoading.distinctUntilChanged().asDriver(onErrorJustReturn: false).drive(onNext: { [weak self] isLoading in
-                if isLoading {
-                    self?.loadingNode.isHidden = false
-                    self?.loadingNode.startAnimating()
+            viewModel?.rxIsLoading.asDriver(onErrorJustReturn: false).drive(onNext: { [weak self] (isLoading) in
+                guard let self = self else { return }
+                if isLoading && self.loadingNode.isHidden && self.viewModel?.itemsSource.count == 0 {
+                    self.loadingNode.isHidden = false
+                    self.loadingNode.startAnimating()
                 }
-                else {
-                    self?.loadingNode.stopAnimating()
-                    self?.loadingNode.isHidden = true
+                if !isLoading && !self.loadingNode.isHidden {
+                    self.loadingNode.stopAnimating()
+                    self.loadingNode.isHidden = true
+                }
+                if !isLoading {
+                    self.stopRefreshing()
                 }
             }).disposedBy(disposeBag)
         }
@@ -91,6 +135,10 @@ open class ASMCollectionController<VM: IASMListViewModel>: ASMViewController<VM>
         selectedItemDidChange(cellViewModel)
     }
     
+    open func getAnimationType() -> RowAnimation {
+        return RowAnimation(insertAnimation: .fade, reloadAnimation: .none, deleteAnimation: .automatic)
+    }
+    
     open func selectedItemDidChange(_ cellViewModel: CVM) { }
     
     open func configureCell(index: IndexPath, cellVM: CVM) -> ASCellNode {
@@ -102,7 +150,7 @@ open class ASMCollectionController<VM: IASMListViewModel>: ASMViewController<VM>
     }
     
     // MARK: Collection Delegate
-    public func shouldBatchFetch(for collectionNode: ASCollectionNode) -> Bool {
+    open func shouldBatchFetch(for collectionNode: ASCollectionNode) -> Bool {
         let timeDiff = CACurrentMediaTime() - lastTimeFetching
         if let viewModel = viewModel,
             timeDiff > FETCH_THREDHOLD,
@@ -115,11 +163,27 @@ open class ASMCollectionController<VM: IASMListViewModel>: ASMViewController<VM>
         return false
     }
     
-    public func collectionNode(_ collectionNode: ASCollectionNode,
+    open func collectionNode(_ collectionNode: ASCollectionNode,
                                willBeginBatchFetchWith context: ASBatchContext) {
         lastTimeFetching = CACurrentMediaTime()
         context.beginBatchFetching()
         viewModel?.fetchingContext = context
         viewModel?.loadMoreItem()
+    }
+    
+    open func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+    }
+    
+    open func configureSupplementaryView(_ title: String, indexPath: IndexPath) -> ASCellNode {
+        return ASCellNode()
+    }
+    
+    open func collectionNode(_ collectionNode: ASCollectionNode, sizeRangeForFooterInSection section: Int) -> ASSizeRange {
+        return ASSizeRange(min: .zero, max: .zero)
+    }
+    
+    open func collectionNode(_ collectionNode: ASCollectionNode, sizeRangeForHeaderInSection section: Int) -> ASSizeRange {
+        return ASSizeRange(min: .zero, max: .zero)
     }
 }
