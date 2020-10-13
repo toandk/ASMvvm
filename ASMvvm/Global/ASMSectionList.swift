@@ -426,22 +426,26 @@ public class ASMReactiveCollection<T>: SectionModelType where T: IdentifyEquatab
     
     @discardableResult
     public func firstIndex(of element: T, at section: Int = 0) -> Int? {
+        guard items.count > section else { return nil }
         return items[section].firstIndex(of: element)
     }
     
     @discardableResult
     public func lastIndex(of element: T, at section: Int) -> Int? {
+        guard items.count > section else { return nil }
         return items[section].lastIndex(of: element)
     }
     
     @discardableResult
     public func firstIndex(where predicate: (T) throws -> Bool, at section: Int) rethrows -> Int? {
+        guard items.count > section else { return nil }
         return try items[section].firstIndex(where: predicate)
     }
     
     @discardableResult
     public func lastIndex(where predicate: (T) throws -> Bool, at section: Int) rethrows -> Int? {
-        return try items[0].lastIndex(where: predicate)
+        guard items.count > section else { return nil }
+        return try items[section].lastIndex(where: predicate)
     }
     
     public func indexPath(of item: T) -> IndexPath? {
