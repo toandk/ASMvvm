@@ -1,5 +1,5 @@
 PODS:
-  - ASMvvm (1.1.0):
+  - ASMvvm (1.1.1):
     - ObjectMapper
     - RxASDataSources
     - RxCocoa-Texture (~> 3.1.0)
@@ -8,20 +8,20 @@ PODS:
     - Texture/Yoga
   - Differentiator (4.0.1)
   - ObjectMapper (3.5.1)
-  - PINCache (3.0.1-beta.8):
-    - PINCache/Arc-exception-safe (= 3.0.1-beta.8)
-    - PINCache/Core (= 3.0.1-beta.8)
-  - PINCache/Arc-exception-safe (3.0.1-beta.8):
+  - PINCache (3.0.1):
+    - PINCache/Arc-exception-safe (= 3.0.1)
+    - PINCache/Core (= 3.0.1)
+  - PINCache/Arc-exception-safe (3.0.1):
     - PINCache/Core
-  - PINCache/Core (3.0.1-beta.8):
-    - PINOperation (~> 1.1.1)
-  - PINOperation (1.1.2)
-  - PINRemoteImage/Core (3.0.0):
+  - PINCache/Core (3.0.1):
+    - PINOperation (~> 1.2.0)
+  - PINOperation (1.2)
+  - PINRemoteImage/Core (3.0.1):
     - PINOperation
-  - PINRemoteImage/iOS (3.0.0):
+  - PINRemoteImage/iOS (3.0.1):
     - PINRemoteImage/Core
-  - PINRemoteImage/PINCache (3.0.0):
-    - PINCache (= 3.0.1-beta.8)
+  - PINRemoteImage/PINCache (3.0.1):
+    - PINCache (~> 3.0.1)
     - PINRemoteImage/Core
   - RxASDataSources (0.5.1):
     - Differentiator (~> 4.0)
@@ -69,7 +69,7 @@ DEPENDENCIES:
   - RxASDataSources (from `https://github.com/toandk/RxASDataSources`)
   - RxCocoa-Texture (from `https://github.com/toandk/RxCocoa-Texture`)
   - RxSwift
-  - Texture (from `https://github.com/TextureGroup/Texture`, branch `3.0.0`)
+  - Texture (from `https://github.com/TextureGroup/Texture`)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
@@ -91,7 +91,6 @@ EXTERNAL SOURCES:
   RxCocoa-Texture:
     :git: https://github.com/toandk/RxCocoa-Texture
   Texture:
-    :branch: 3.0.0
     :git: https://github.com/TextureGroup/Texture
 
 CHECKOUT OPTIONS:
@@ -102,16 +101,16 @@ CHECKOUT OPTIONS:
     :commit: 69bcc414b9d2226f909b296cf482a20375f9f6cf
     :git: https://github.com/toandk/RxCocoa-Texture
   Texture:
-    :commit: 81ecdc903236d9c88e2ad16ae9672759bbe71431
+    :commit: ec19b928a8b4cee7e12798e2ada629611a3b4a5f
     :git: https://github.com/TextureGroup/Texture
 
 SPEC CHECKSUMS:
-  ASMvvm: 47c9086bbd29ce0674e461c906cb8a23d88bebee
+  ASMvvm: d16e4ff12fd8164bc1e322c5abb0251cc68a0836
   Differentiator: 886080237d9f87f322641dedbc5be257061b0602
   ObjectMapper: 70187b8941977c62ccfb423caf6b50be405cabf0
-  PINCache: 534fd41d358d828dfdf227a0d327f3673a65e20b
-  PINOperation: 24b774353ca248fcf87d67b2d61eef42087c125a
-  PINRemoteImage: e2b89e19fb6e77ffc099f9d9f3b3fe1745e3f9f9
+  PINCache: ee3c4abadd09970a61cdda0cfc345e69a3d75b26
+  PINOperation: 3a967a927e7867e61976c6cc23e5770416449fbc
+  PINRemoteImage: 3b7cedb118c2d357f87e9eabc7c81ba0202cb236
   RxASDataSources: 81764dee676512cb9623352ac7f19ced3e33a7c6
   RxCocoa: 32065309a38d29b5b0db858819b5bf9ef038b601
   RxCocoa-Texture: b3eacb1ef3d9f8cc53f69d67fdd4c1ebbf5766e1
@@ -120,6 +119,6 @@ SPEC CHECKSUMS:
   Texture: 2f109e937850d94d1d07232041c9c7313ccddb81
   Yoga: 81670877477311136b1b3f69a6307ce62e1c89cf
 
-PODFILE CHECKSUM: 08f1532d7b28bb29489e4b16e1991c59c7031df3
+PODFILE CHECKSUM: 416b58a0a1fdebb365ea55348486e580405abb5b
 
 COCOAPODS: 1.9.3

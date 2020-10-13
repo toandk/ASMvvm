@@ -8,6 +8,6 @@ target 'ASMvvm-Example' do
   pod 'RxSwift'
   pod 'RxASDataSources', :git => 'https://github.com/toandk/RxASDataSources'
   pod 'ObjectMapper'
-  pod 'Texture', :git => 'https://github.com/TextureGroup/Texture', :branch => '3.0.0'
+  pod 'Texture', :git => 'https://github.com/TextureGroup/Texture'
 #  pod 'Texture/Yoga'
 end
