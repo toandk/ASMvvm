@@ -12,6 +12,7 @@
 		7081DC5023F686F100A3757E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7081DC4F23F686F100A3757E /* Assets.xcassets */; };
 		7081DC5323F686F100A3757E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7081DC5123F686F100A3757E /* LaunchScreen.storyboard */; };
 		7081DCBE23F6AD5100A3757E /* SimpleListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7081DCBD23F6AD5100A3757E /* SimpleListCell.swift */; };
+		7092A5B924B2D0EC00A97426 /* CollectionSampleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7092A5B824B2D0EC00A97426 /* CollectionSampleVC.swift */; };
 		72F57319BE54B87FD18D9323 /* Pods_ASMvvm_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9CF151601B9E8DAA6A47BA5 /* Pods_ASMvvm_Example.framework */; };
 /* End PBXBuildFile section */
 
@@ -25,6 +26,7 @@
 		7081DC5223F686F100A3757E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7081DC5423F686F100A3757E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7081DCBD23F6AD5100A3757E /* SimpleListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleListCell.swift; sourceTree = "<group>"; };
+		7092A5B824B2D0EC00A97426 /* CollectionSampleVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionSampleVC.swift; sourceTree = "<group>"; };
 		DB7F23EA6C31D77CAC7F92CB /* Pods-ASMvvm-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ASMvvm-Example.debug.xcconfig"; path = "Target Support Files/Pods-ASMvvm-Example/Pods-ASMvvm-Example.debug.xcconfig"; sourceTree = "<group>"; };
 		F7E7EE7280073BF594827413 /* Pods-ASMvvm.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ASMvvm.debug.xcconfig"; path = "Target Support Files/Pods-ASMvvm/Pods-ASMvvm.debug.xcconfig"; sourceTree = "<group>"; };
 		F9CF151601B9E8DAA6A47BA5 /* Pods_ASMvvm_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ASMvvm_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -73,6 +75,7 @@
 			children = (
 				7081DC4823F686F000A3757E /* AppDelegate.swift */,
 				7081DC4A23F686F000A3757E /* ViewController.swift */,
+				7092A5B824B2D0EC00A97426 /* CollectionSampleVC.swift */,
 				7081DCBD23F6AD5100A3757E /* SimpleListCell.swift */,
 				7081DC4F23F686F100A3757E /* Assets.xcassets */,
 				7081DC5123F686F100A3757E /* LaunchScreen.storyboard */,
@@ -209,6 +212,7 @@
 				7081DCBE23F6AD5100A3757E /* SimpleListCell.swift in Sources */,
 				7081DC4B23F686F000A3757E /* ViewController.swift in Sources */,
 				7081DC4923F686F000A3757E /* AppDelegate.swift in Sources */,
+				7092A5B924B2D0EC00A97426 /* CollectionSampleVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

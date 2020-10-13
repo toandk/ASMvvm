@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.backgroundColor = .white
         let vm = SimpleListViewModel(model: nil)
         vm.canShowLoading = true
-        let vc = ViewController(viewModel: vm)
+        let vc = CollectionSampleVC(viewModel: vm)
         let vc2 = UIViewController()
         let navc = UINavigationController(rootViewController: vc2)
         navc.pushViewController(vc, animated: true)

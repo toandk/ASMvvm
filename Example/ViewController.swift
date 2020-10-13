@@ -83,6 +83,18 @@ class SimpleListViewModel: ASMListViewModel<ASMModel, SimpleListCellViewModel> {
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             self.rxIsLoading.accept(false)
         }
+        getList()
+    }
+    
+    func getList() {
+        let items: ASMSectionList<SimpleListCellViewModel> = ASMSectionList<SimpleListCellViewModel>("1")
+        for _ in 0..<10 {
+            let number = Int.random(in: 1000...10000)
+            let title = "This is your random number: \(number)"
+            items.append(SimpleListCellViewModel(model: SimpleModel(withTitle: title)))
+        }
+        
+        itemsSource.appendSection(items)
     }
     
     public func add() {
@@ -91,14 +103,25 @@ class SimpleListViewModel: ASMListViewModel<ASMModel, SimpleListCellViewModel> {
         let cvm = SimpleListCellViewModel(model: SimpleModel(withTitle: title))
         itemsSource.append(cvm, to: 0, animated: true)
         
-        if itemsSource.countElements() == 20 {
-            canLoadMore = false
-        }
+//        if itemsSource.countElements() == 20 {
+//            canLoadMore = false
+//        }
     }
     
     override func loadMoreItem() {
-        add()
-        add()
+        rxIsLoadingMore.accept(true)
+        let items: ASMSectionList<SimpleListCellViewModel> = ASMSectionList<SimpleListCellViewModel>("\(Int.random(in: 1000...10000))")
+        for _ in 0..<10 {
+            let number = Int.random(in: 1000...10000)
+            let title = "This is your random number: \(number)"
+            items.append(SimpleListCellViewModel(model: SimpleModel(withTitle: title)))
+        }
+                        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            self.itemsSource.appendSection(items)
+            self.rxIsLoadingMore.accept(false)
+            self.finishFetching()
+        }        
         
         print("load more")
     }
