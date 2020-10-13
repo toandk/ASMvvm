@@ -44,6 +44,6 @@ A MVVM library for iOS Swift, including interfaces for View, ViewModel and Model
   s.dependency 'RxSwift'
   s.dependency 'RxASDataSources'
   s.dependency 'ObjectMapper'
-  s.dependency 'Texture'
-  s.dependency 'Texture/Yoga'
+  s.dependency 'Texture', '~> 3.0.0'
+#  s.dependency 'Texture/Yoga'
 end
