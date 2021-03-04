@@ -14,11 +14,11 @@ open class ASMEmptyNode: ASDisplayNode {
     let imgNode = ASImageNode()
     let textNode = ASTextNode()
     
-    func setImage(_ image: UIImage) {
+    open func setImage(_ image: UIImage) {
         imgNode.image = image
     }
     
-    func setText(_ text: NSAttributedString) {
+    open func setText(_ text: NSAttributedString) {
         textNode.attributedText = text
     }
     
