@@ -14,8 +14,14 @@ open class ASMEmptyNode: ASDisplayNode {
     let imgNode = ASImageNode()
     let textNode = ASTextNode()
     
+    override init() {
+        super.init()
+        automaticallyManagesSubnodes = true
+    }
+    
     open func setImage(_ image: UIImage) {
         imgNode.image = image
+        imgNode.style.preferredSize = image.size
     }
     
     open func setText(_ text: NSAttributedString) {
