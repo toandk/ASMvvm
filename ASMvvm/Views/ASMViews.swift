@@ -19,7 +19,7 @@ open class ASMEmptyNode: ASDisplayNode {
         automaticallyManagesSubnodes = true
     }
     
-    open func setImage(_ image: UIImage) {
+    open func setImage(_ image: UIImage?) {
         imgNode.image = image
         imgNode.style.preferredSize = image.size
     }
