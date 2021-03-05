@@ -14,7 +14,7 @@ open class ASMEmptyNode: ASDisplayNode {
     let imgNode = ASImageNode()
     let textNode = ASTextNode()
     
-    open override init() {
+    public override init() {
         super.init()
         automaticallyManagesSubnodes = true
     }
