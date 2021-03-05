@@ -21,7 +21,9 @@ open class ASMEmptyNode: ASDisplayNode {
     
     open func setImage(_ image: UIImage?) {
         imgNode.image = image
-        imgNode.style.preferredSize = image.size
+        if let image = image {
+            imgNode.style.preferredSize = image.size
+        }
     }
     
     open func setText(_ text: NSAttributedString) {
