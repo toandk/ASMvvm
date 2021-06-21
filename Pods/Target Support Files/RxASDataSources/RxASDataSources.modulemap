@@ -1,6 +1,0 @@
-framework module RxASDataSources {
-  umbrella header "RxASDataSources-umbrella.h"
-
-  export *
-  module * { export * }
-}
