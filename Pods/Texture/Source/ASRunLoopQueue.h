@@ -32,8 +32,7 @@ AS_SUBCLASSING_RESTRICTED
  *
  * @discussion You may pass @c nil for the handler if you simply want the objects to
  * be retained at enqueue time, and released during the run loop step. This is useful
- * for creating a "main deallocation queue", as @c ASDeallocQueue creates its own 
- * worker thread with its own run loop.
+ * for creating a "main deallocation queue".
  */
 - (instancetype)initWithRunLoop:(CFRunLoopRef)runloop
                   retainObjects:(BOOL)retainsObjects
@@ -48,12 +47,7 @@ AS_SUBCLASSING_RESTRICTED
 
 @end
 
-AS_SUBCLASSING_RESTRICTED
-@interface ASCATransactionQueue : ASAbstractRunLoopQueue
 
-@property (readonly) BOOL isEmpty;
-
-@property (readonly, getter=isEnabled) BOOL enabled;
 
 /**
  * The queue to run on main run loop before CATransaction commit.
@@ -62,22 +56,25 @@ AS_SUBCLASSING_RESTRICTED
  * to get last chance of updating/coalesce info like interface state.
  * Each node will only be called once per transaction commit to reflect interface change.
  */
-@property (class, readonly) ASCATransactionQueue *sharedQueue;
-+ (ASCATransactionQueue *)sharedQueue NS_RETURNS_RETAINED;
+AS_SUBCLASSING_RESTRICTED
+@interface ASCATransactionQueue : ASAbstractRunLoopQueue
+
+@property (readonly) BOOL isEmpty;
+
+@property (readonly, getter=isEnabled) BOOL enabled;
 
 - (void)enqueue:(id<ASCATransactionQueueObserving>)object;
 
 @end
 
-@interface ASDeallocQueue : NSObject
+extern ASCATransactionQueue *_ASSharedCATransactionQueue;
+extern dispatch_once_t _ASSharedCATransactionQueueOnceToken;
 
-@property (class, readonly) ASDeallocQueue *sharedDeallocationQueue;
-+ (ASDeallocQueue *)sharedDeallocationQueue NS_RETURNS_RETAINED;
-
-- (void)drain;
-
-- (void)releaseObjectInBackground:(id __strong _Nullable * _Nonnull)objectPtr;
-
-@end
+NS_INLINE ASCATransactionQueue *ASCATransactionQueueGet(void) {
+  dispatch_once(&_ASSharedCATransactionQueueOnceToken, ^{
+    _ASSharedCATransactionQueue = [[ASCATransactionQueue alloc] init];
+  });
+  return _ASSharedCATransactionQueue;
+}
 
 NS_ASSUME_NONNULL_END

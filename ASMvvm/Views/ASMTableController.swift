@@ -138,16 +138,17 @@ open class ASMTableController<VM: IASMListViewModel>: ASMViewController<VM>, AST
     }
     
     open func shouldBatchFetch(for tableNode: ASTableNode) -> Bool {
-        let timeDiff = CACurrentMediaTime() - lastTimeFetching
-        if let viewModel = viewModel,
-            timeDiff > FETCH_THREDHOLD,
-            viewModel.itemsSource.allElements().count > 0,
-            viewModel.canLoadMore,
-            !viewModel.rxIsLoading.value,
-            !viewModel.rxIsLoadingMore.value {
-                return true
-            }
         return false
+//        let timeDiff = CACurrentMediaTime() - lastTimeFetching
+//        if let viewModel = viewModel,
+//            timeDiff > FETCH_THREDHOLD,
+//            viewModel.itemsSource.allElements().count > 0,
+//            viewModel.canLoadMore,
+//            !viewModel.rxIsLoading.value,
+//            !viewModel.rxIsLoadingMore.value {
+//                return true
+//            }
+//        return false
     }
     
     open func tableNode(_ tableNode: ASTableNode, willBeginBatchFetchWith context: ASBatchContext) {
@@ -170,6 +171,18 @@ open class ASMTableController<VM: IASMListViewModel>: ASMViewController<VM>, AST
     }
     
     open func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
+        let offset = scrollView.contentOffset.y
+        if offset > scrollView.contentSize.height - scrollView.frame.height - 160 {
+            let timeDiff = CACurrentMediaTime() - lastTimeFetching
+            if let viewModel = viewModel,
+                timeDiff > FETCH_THREDHOLD,
+                viewModel.itemsSource.allElements().count > 0,
+                viewModel.canLoadMore,
+                !viewModel.rxIsLoading.value,
+                !viewModel.rxIsLoadingMore.value {
+                    lastTimeFetching = CACurrentMediaTime()
+                    viewModel.loadMoreItem()
+                }
+        }
     }
 }

@@ -38,7 +38,7 @@ extension ObservableType {
                 .takeUntil(object.rx.deallocated)
                 .subscribe { [weak object] (event: RxSwift.Event<E>) in
                     
-                    if let object = object {
+                    if object != nil {
                         // TODO: Enable assert again to prevent Proxy changed
                         // Temporary comment out this to by pass `pod lib lint`
                         // assert(proxy === DelegateProxy.currentDelegate(for: object), "Proxy changed from the time it was first set.\nOriginal: \(proxy)\nExisting: \(String(describing: DelegateProxy.currentDelegate(for: object)))")

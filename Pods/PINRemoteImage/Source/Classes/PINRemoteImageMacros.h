@@ -3,26 +3,19 @@
 //  PINRemoteImage
 //
 
-#import <TargetConditionals.h>
+#import <Foundation/Foundation.h>
 
 #ifndef PINRemoteImageMacros_h
 #define PINRemoteImageMacros_h
 
 #define PIN_TARGET_IOS (TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR || TARGET_OS_TV)
-#define PIN_TARGET_MAC (TARGET_OS_MAC)
+#define PIN_TARGET_MAC TARGET_OS_OSX
 
 #define PINRemoteImageLogging                0
 #if PINRemoteImageLogging
 #define PINLog(args...) NSLog(args)
 #else
 #define PINLog(args...)
-#endif
-
-#if __has_include(<FLAnimatedImage/FLAnimatedImage.h>)
-#define USE_FLANIMATED_IMAGE    1
-#else
-#define USE_FLANIMATED_IMAGE    0
-#define FLAnimatedImage NSObject
 #endif
 
 #ifndef USE_PINCACHE
@@ -34,7 +27,7 @@
 #endif
 
 #ifndef PIN_WEBP
-    #if __has_include("webp/decode.h")
+    #if __has_include(<WebPDecoder/decode.h>)
     #define PIN_WEBP    1
     #else
     #define PIN_WEBP    0
@@ -71,5 +64,7 @@ lineNumber:__LINE__ description:(desc), ##__VA_ARGS__]; \
 }				\
 __PRAGMA_POP_NO_EXTRA_ARG_WARNINGS \
 } while(0);
+
+#define PINAssertMain() NSAssert([NSThread isMainThread], @"Expected to be on the main thread.");
 
 #endif /* PINRemoteImageMacros_h */

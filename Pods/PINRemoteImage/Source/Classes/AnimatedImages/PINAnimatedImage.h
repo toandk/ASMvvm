@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "PINRemoteImageMacros.h"
 
 #if PIN_TARGET_IOS
 #import <UIKit/UIKit.h>
@@ -14,14 +15,14 @@
 #import <Cocoa/Cocoa.h>
 #endif
 
-#import "PINRemoteImageMacros.h"
+NS_ASSUME_NONNULL_BEGIN
 
-extern NSString * _Nonnull kPINAnimatedImageErrorDomain;
+extern NSErrorDomain const kPINAnimatedImageErrorDomain;
 
 /**
  PINAnimatedImage decoding and processing errors.
  */
-typedef NS_ENUM(NSUInteger, PINAnimatedImageError) {
+typedef NS_ERROR_ENUM(kPINAnimatedImageErrorDomain, PINAnimatedImageErrorCode) {
     /** No error, yay! */
     PINAnimatedImageErrorNoError = 0,
     /** Could not create a necessary file. */
@@ -55,8 +56,6 @@ typedef NS_ENUM(NSUInteger, PINAnimatedImageStatus) {
 };
 
 extern const Float32 kPINAnimatedImageDefaultDuration;
-extern const Float32 kPINAnimatedImageMinimumDuration;
-extern const NSTimeInterval kPINAnimatedImageDisplayRefreshRate;
 
 /**
  Called when the cover image of an animatedImage is ready.
@@ -66,6 +65,11 @@ typedef void(^PINAnimatedImageInfoReady)(PINImage * _Nonnull coverImage);
 @protocol PINAnimatedImage;
 
 @interface PINAnimatedImage : NSObject
+
+/**
+ @abstract The maximum number of frames per second supported.
+ */
++ (NSInteger)maximumFramesPerSecond;
 
 /**
  @abstract Return the duration at a given index.
@@ -106,6 +110,11 @@ typedef void(^PINAnimatedImageInfoReady)(PINImage * _Nonnull coverImage);
 @protocol PINAnimatedImage
 
 /**
+ @abstract the underlying data of the animated image if available.
+ */
+@property (nonatomic, readonly) NSData *data;
+
+/**
  @abstract the native width of the animated image.
  */
 @property (nonatomic, readonly) uint32_t width;
@@ -137,7 +146,7 @@ typedef void(^PINAnimatedImageInfoReady)(PINImage * _Nonnull coverImage);
  */
 @property (nonatomic, readonly) size_t frameCount;
 /**
- @abstract Return any error that has occured. Playback will be paused if this returns non-nil.
+ @abstract Return any error that has occurred. Playback will be paused if this returns non-nil.
  */
 @property (nonatomic, readonly, nullable) NSError *error;
 
@@ -152,3 +161,5 @@ typedef void(^PINAnimatedImageInfoReady)(PINImage * _Nonnull coverImage);
 - (CFTimeInterval)durationAtIndex:(NSUInteger)index;
 
 @end
+
+NS_ASSUME_NONNULL_END

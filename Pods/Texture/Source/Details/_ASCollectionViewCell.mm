@@ -97,6 +97,9 @@
 
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
 {
+  ASCellNode *node = self.node;
+  UIView *nodeView = node.view;
+  
   /**
    * The documentation for hitTest:withEvent: on an UIView explicitly states the fact that:
    * it ignores view objects that are hidden, that have disabled user interactions, or have an
@@ -106,16 +109,19 @@
    * superclass hitTest:withEvent: implementation. If this returns a valid value we can go on with
    * checking the node as it's expected to not be in one of these states.
    */
-  if (![super hitTest:self.bounds.origin withEvent:event]) {
+  CGPoint originPointOnView = [self convertPoint:nodeView.bounds.origin fromView:nodeView];
+  if (![super hitTest:originPointOnView withEvent:event]) {
     return nil;
   }
 
-  return [self.node hitTest:point withEvent:event];
+  CGPoint pointOnNode = [node.view convertPoint:point fromView:self];
+  return [node hitTest:pointOnNode withEvent:event];
 }
 
 - (BOOL)pointInside:(CGPoint)point withEvent:(nullable UIEvent *)event
 {
-  return [self.node pointInside:point withEvent:event];
+  CGPoint pointOnNode = [self.node.view convertPoint:point fromView:self];
+  return [self.node pointInside:pointOnNode withEvent:event];
 }
 
 @end

@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol PINRemoteImageCaching;
@@ -42,6 +41,10 @@ typedef void (^PINRemoteImageCachingObjectBlock)(id<PINRemoteImageCaching> cache
 @optional
 
 - (void)removeObjectForKeyFromMemory:(NSString *)key;
+- (void)setObjectInMemory:(id)object forKey:(NSString *)key withCost:(NSUInteger)cost withAgeLimit:(NSTimeInterval)ageLimit;
+- (void)setObjectOnDisk:(id)object forKey:(NSString *)key withAgeLimit:(NSTimeInterval)ageLimit;
+- (BOOL)memoryCacheIsTTLCache;
+- (BOOL)diskCacheIsTTLCache;
 
 @end
 

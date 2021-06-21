@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'ASMvvm'
-  s.version          = '1.0.8'
+  s.version          = '1.1.1'
   s.summary          = 'A MVVM library for iOS Swift, Wrapped TextureGroup (AsyncDisplayKit)'
 
 # This description is used to generate tags and improve search results.
@@ -44,6 +44,6 @@ A MVVM library for iOS Swift, including interfaces for View, ViewModel and Model
   s.dependency 'RxSwift'
   s.dependency 'RxASDataSources'
   s.dependency 'ObjectMapper'
-  s.dependency 'Texture'
-  s.dependency 'Texture/Yoga'
+  s.dependency 'Texture', '~> 3.0.0'
+#  s.dependency 'Texture/Yoga'
 end

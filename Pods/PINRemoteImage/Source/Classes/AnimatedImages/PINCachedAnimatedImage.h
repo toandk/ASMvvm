@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+#import "PINRemoteImageMacros.h"
 #import "PINAnimatedImage.h"
 
 @interface PINCachedAnimatedImage : NSObject
@@ -38,6 +39,10 @@
  */
 @property (nonatomic, readonly) NSUInteger frameInterval;
 /**
+ @abstract Return the size of the underlying animated image.
+ */
+@property (nonatomic, readonly) CGSize size;
+/**
  @abstract Return the total number of loops the animated image should play or 0 to loop infinitely.
  */
 @property (nonatomic, readonly) size_t loopCount;
@@ -46,11 +51,15 @@
  */
 @property (nonatomic, readonly) size_t frameCount;
 /**
+ @abstract Return the underlying data if available;
+ */
+@property (nonatomic, readonly) NSData *data;
+/**
  @abstract Return YES when playback is ready to occur.
  */
 @property (nonatomic, readonly) BOOL playbackReady;
 /**
- @abstract Return any error that has occured. Playback will be paused if this returns non-nil.
+ @abstract Return any error that has occurred. Playback will be paused if this returns non-nil.
  */
 @property (nonatomic, readonly) NSError *error;
 /**
