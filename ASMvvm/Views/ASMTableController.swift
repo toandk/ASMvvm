@@ -9,6 +9,8 @@
 import Foundation
 import AsyncDisplayKit
 import RxASDataSources
+import RxSwift
+import RxCocoa
 
 open class ASMTableController<VM: IASMListViewModel>: ASMViewController<VM>, ASTableDelegate {
     
@@ -66,8 +68,12 @@ open class ASMTableController<VM: IASMListViewModel>: ASMViewController<VM>, AST
         buildDataSource()
         setupAnimation()
         
-        viewModel?.itemsSource.rxInnerSources
-            .bind(to: tableNode.rx.items(dataSource: dataSource!)).disposedBy(disposeBag)
+        if let dataSource = dataSource {
+            viewModel?.itemsSource.rxInnerSources
+                .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
+                .bind(to: tableNode.rx.items(dataSource: dataSource))
+                .disposedBy(disposeBag)
+        }
         bindLoadingNode()
     }
     

@@ -9,6 +9,8 @@
 import UIKit
 import AsyncDisplayKit
 import RxASDataSources
+import RxSwift
+import RxCocoa
 
 open class ASMCollectionView<VM: IASMListViewModel>: ASMView<VM> {
 
@@ -58,8 +60,12 @@ open class ASMCollectionView<VM: IASMListViewModel>: ASMView<VM> {
             configureCell: configureCell
         )
         
-        viewModel?.itemsSource.rxInnerSources
-            .bind(to: collectionNode.rx.items(dataSource: dataSource!)).disposedBy(disposeBag)
+        if let dataSource = dataSource {
+            viewModel?.itemsSource.rxInnerSources
+                .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
+                .bind(to: collectionNode.rx.items(dataSource: dataSource))
+                .disposedBy(disposeBag)
+        }
     }
     
     private func onItemSelected(_ indexPath: IndexPath) {

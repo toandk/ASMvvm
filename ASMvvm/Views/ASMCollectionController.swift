@@ -9,6 +9,8 @@
 import Foundation
 import AsyncDisplayKit
 import RxASDataSources
+import RxCocoa
+import RxSwift
 
 open class ASMCollectionController<VM: IASMListViewModel>: ASMViewController<VM>, ASCollectionDelegate, ASCollectionDelegateFlowLayout {
     
@@ -47,15 +49,12 @@ open class ASMCollectionController<VM: IASMListViewModel>: ASMViewController<VM>
     open func beginRefreshing() {
         guard let refreshControl = collectionNode.view.getRefreshControl() else { return }
         refreshControl.beginRefreshing()
-            
-    //        tableNode.contentInset = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
-        }
+    }
         
     open func stopRefreshing() {
         let refreshControl = self.collectionNode.view.getRefreshControl()
         if refreshControl?.isRefreshing == true {
             refreshControl?.endRefreshing()
-//            self.collectionNode.contentInset = .zero
         }
     }
     
@@ -68,8 +67,12 @@ open class ASMCollectionController<VM: IASMListViewModel>: ASMViewController<VM>
         buildDataSource()
         setupAnimation()
         
-        viewModel?.itemsSource.rxInnerSources
-            .bind(to: collectionNode.rx.items(dataSource: dataSource!)).disposedBy(disposeBag)
+        if let dataSource = dataSource {
+            viewModel?.itemsSource.rxInnerSources
+                .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
+                .bind(to: collectionNode.rx.items(dataSource: dataSource))
+                .disposedBy(disposeBag)
+        }
         bindLoadingNode()
     }
     

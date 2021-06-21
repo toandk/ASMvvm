@@ -9,6 +9,8 @@
 import UIKit
 import AsyncDisplayKit
 import RxASDataSources
+import RxSwift
+import RxCocoa
 
 open class ASMListView<VM: IASMListViewModel>: ASMView<VM>, ASTableDelegate {
 
@@ -66,8 +68,12 @@ open class ASMListView<VM: IASMListViewModel>: ASMView<VM>, ASTableDelegate {
             self?.dataSource?.animationType = animated ? ani1 : ani2
         }).disposedBy(disposeBag)
         
-        viewModel?.itemsSource.rxInnerSources
-            .bind(to: tableNode.rx.items(dataSource: dataSource!)).disposedBy(disposeBag)
+        if let dataSource = dataSource {
+            viewModel?.itemsSource.rxInnerSources
+                .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
+                .bind(to: tableNode.rx.items(dataSource: dataSource))
+                .disposedBy(disposeBag)
+        }
     }
     
     private func onItemSelected(_ indexPath: IndexPath) {
