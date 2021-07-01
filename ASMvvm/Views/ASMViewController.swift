@@ -96,12 +96,13 @@ open class ASMViewController<VM: IASMViewModel>: ASDKViewController<ASDisplayNod
      */
     open func bindViewAndViewModel() {}
     
+    deinit { destroy() }
+    
     /**
      Subclasses override this method to remove all things related to `DisposeBag`.
      */
     open func destroy() {
         disposeBag = DisposeBag()
-        viewModel?.destroy()
     }
     
     open func viewModelChanged() {

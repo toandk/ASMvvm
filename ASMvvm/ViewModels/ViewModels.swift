@@ -169,6 +169,8 @@ open class ASMCellViewModel<M>: NSObject, IASMGenericViewModel, IIndexable, IRea
         disposeBag = DisposeBag()
     }
     
+    deinit { destroy() }
+    
     open func modelChanged() {}
     open func react() {}
     

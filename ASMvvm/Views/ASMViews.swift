@@ -112,7 +112,6 @@ open class ASMView<VM: IASMGenericViewModel>: ASDisplayNode, IASMView {
     
     open func destroy() {
         disposeBag = DisposeBag()
-//        viewModel?.destroy()
     }
     
     open func initialize() {}
@@ -179,7 +178,6 @@ open class ASMCellNode<VM: IASMGenericViewModel>: ASCellNode, IASMView {
     
     open func destroy() {
         disposeBag = DisposeBag()
-//        viewModel?.destroy()
     }
     
     open func initialize() {}
