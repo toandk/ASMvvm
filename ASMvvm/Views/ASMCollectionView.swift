@@ -62,7 +62,7 @@ open class ASMCollectionView<VM: IASMListViewModel>: ASMView<VM> {
         
         if let dataSource = dataSource {
             viewModel?.itemsSource.rxInnerSources
-                .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
+                .debounce(.milliseconds(300), scheduler: MainScheduler.instance)
                 .bind(to: collectionNode.rx.items(dataSource: dataSource))
                 .disposedBy(disposeBag)
         }

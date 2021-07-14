@@ -70,7 +70,7 @@ open class ASMTableController<VM: IASMListViewModel>: ASMViewController<VM>, AST
         
         if let dataSource = dataSource {
             viewModel?.itemsSource.rxInnerSources
-                .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
+                .debounce(.milliseconds(300), scheduler: MainScheduler.instance)
                 .bind(to: tableNode.rx.items(dataSource: dataSource))
                 .disposedBy(disposeBag)
         }
