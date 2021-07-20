@@ -69,13 +69,7 @@ open class ASMTableController<VM: IASMListViewModel>: ASMViewController<VM>, AST
         setupAnimation()
         
         if let dataSource = dataSource {
-            // NOTE: use debounce to avoid rxInnerSources update in consecutive methods
-            // use throttle to avoid rxInnerSources update by other thread (for example: api thread)
-            // it lead to some error when change itemsSource with animation,
-            // should not use animation when update in consecutive methods
             viewModel?.itemsSource.rxInnerSources
-                .debounce(.milliseconds(50), scheduler: MainScheduler.instance)
-                .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
                 .bind(to: tableNode.rx.items(dataSource: dataSource))
                 .disposedBy(disposeBag)
         }

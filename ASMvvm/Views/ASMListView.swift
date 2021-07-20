@@ -70,7 +70,6 @@ open class ASMListView<VM: IASMListViewModel>: ASMView<VM>, ASTableDelegate {
         
         if let dataSource = dataSource {
             viewModel?.itemsSource.rxInnerSources
-                .debounce(.milliseconds(300), scheduler: MainScheduler.instance)
                 .bind(to: tableNode.rx.items(dataSource: dataSource))
                 .disposedBy(disposeBag)
         }
