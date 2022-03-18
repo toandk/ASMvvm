@@ -421,7 +421,13 @@ public class ASMReactiveCollection<T>: SectionModelType where T: IdentifyEquatab
     }
     
     public func indexForSection(withKey key: AnyObject) -> Int? {
-        return items.firstIndex(where: { key.isEqual($0.key) })
+        
+        return items.firstIndex(where: {
+            if key is String && !($0.key is String) {
+                return false
+            }
+            return key.isEqual($0.key)
+        })
     }
     
     @discardableResult
