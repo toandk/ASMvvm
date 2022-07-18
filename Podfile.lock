@@ -99,7 +99,7 @@ CHECKOUT OPTIONS:
     :git: https://github.com/TextureGroup/Texture
 
 SPEC CHECKSUMS:
-  ASMvvm: ba380cdb0cda10ab062a37ce671c5d0c43e0a27a
+  ASMvvm: ff436c4f39135a09733f524d436cc279abea582d
   Differentiator: 886080237d9f87f322641dedbc5be257061b0602
   ObjectMapper: 1eb41f610210777375fa806bf161dc39fb832b81
   PINCache: 7a8fc1a691173d21dbddbf86cd515de6efa55086
