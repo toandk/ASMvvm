@@ -40,10 +40,10 @@ A MVVM library for iOS Swift, including interfaces for View, ViewModel and Model
   # s.public_header_files = 'Pod/Classes/**/*.h'
   s.frameworks = 'UIKit'
   s.dependency 'RxSwift'
-  s.dependency 'RxCocoa-Texture', '~> 3.1.0'
+  s.dependency 'RxCocoa-Texture'
   s.dependency 'RxSwift'
   s.dependency 'RxASDataSources'
   s.dependency 'ObjectMapper'
-  s.dependency 'Texture', '~> 3.0.0'
+  s.dependency 'Texture'
 #  s.dependency 'Texture/Yoga'
 end
